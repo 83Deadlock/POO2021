@@ -1,5 +1,7 @@
 package Geral;
 
+import Jogadores.*;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,18 +16,28 @@ public class StartGame {
         while (currentLine != null) {
             switch (currentLine.charAt(0)) {
                 case 'A':
-
+                    Jogador avan = Avancado.fromLine(currentLine);
+                    jogadores.add(avan);
                     break;
                 case 'D':
+                    Jogador def = Defesa.fromLine(currentLine);
+                    jogadores.add(def);
                     break;
                 case 'G':
+                    Jogador redes = GuardaRedes.fromLine(currentLine);
+                    jogadores.add(redes);
                     break;
                 case 'M':
+                    Jogador med = Medio.fromLine(currentLine);
+                    jogadores.add(med);
                     break;
                 case 'L':
-
+                    Jogador lat = Lateral.fromLine(currentLine);
+                    jogadores.add(lat);
                     break;
             }
+            currentLine = reader.readLine();
         }
+        System.out.println(jogadores);
     }
 }
