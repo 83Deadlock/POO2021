@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Jogador {
+public abstract class Jogador {
     private String nome;
     private LocalDate dataDeNascimento;
     private int overall;
-    private Equipa equipaAtual;
-    private List<Equipa> historico;
+    private String equipaAtual;
+    private List<String> historico;
 
     // Atributos
     private int velocidade;
@@ -25,8 +25,7 @@ public class Jogador {
     }
     public Jogador(String nome,
                    LocalDate dataDeNascimento,
-                   int overall,
-                   Equipa equipaAtual,
+                   String equipaAtual,
                    int velocidade,
                    int resistencia,
                    int destreza,
@@ -36,9 +35,9 @@ public class Jogador {
                    int passe) {
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
-        this.overall = overall;
+        this.overall = 0;
         this.equipaAtual = equipaAtual;
-        this.historico = new ArrayList<>();
+        this.historico = new ArrayList<String>();
         this.velocidade = velocidade;
         this.resistencia = resistencia;
         this.destreza = destreza;
@@ -46,5 +45,8 @@ public class Jogador {
         this.jogodecabeca = jogodecabeca;
         this.remate = remate;
         this.passe = passe;
+        this.calculateOverall();
     }
+
+    public abstract void calculateOverall();
 }

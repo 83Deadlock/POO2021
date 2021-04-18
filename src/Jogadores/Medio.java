@@ -1,5 +1,5 @@
 package Jogadores;
-import Geral.Equipa;
+import Geral.Helper;
 import Geral.Jogador;
 
 import java.time.LocalDate;
@@ -9,8 +9,7 @@ public class Medio extends Jogador {
 
     public Medio(String nome,
                  LocalDate dataDeNascimento,
-                 int overall,
-                 Equipa equipaAtual,
+                 String equipaAtual,
                  int velocidade,
                  int resistencia,
                  int destreza,
@@ -19,7 +18,28 @@ public class Medio extends Jogador {
                  int remate,
                  int passe,
                  int recup_bola) {
-        super(nome, dataDeNascimento, overall, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+        super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
         this.recup_bola = recup_bola;
+    }
+
+    @Override
+    public void calculateOverall() {
+
+    }
+
+    public static Medio fromLine(String line) {
+        String[] atributos = line.split(",");
+        String nome = atributos[1];
+        LocalDate nascimento = Helper.dateFromString(atributos[2]);
+        String equipa = atributos[3];
+        int velocidade = Integer.parseInt(atributos[4]);
+        int resistencia = Integer.parseInt(atributos[5]);
+        int destreza = Integer.parseInt(atributos[6]);
+        int impulsao = Integer.parseInt(atributos[7]);
+        int jogoCabeca = Integer.parseInt(atributos[8]);
+        int remate = Integer.parseInt(atributos[9]);
+        int passe = Integer.parseInt(atributos[10]);
+        int recup = Integer.parseInt(atributos[11]);
+        return new Medio(nome, nascimento, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, recup);
     }
 }
