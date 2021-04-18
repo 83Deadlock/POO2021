@@ -47,4 +47,52 @@ public abstract class Jogador {
     }
 
     public abstract void calculateOverall();
+
+    public String getNome() {
+        return nome;
+    }
+
+    public LocalDate getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public int getOverall() {
+        return overall;
+    }
+
+    public String getEquipaAtual() {
+        return equipaAtual;
+    }
+
+    public List<String> getHistorico() {
+        return historico;
+    }
+
+    public int getVelocidade() {
+        return velocidade;
+    }
+
+    public int getResistencia() {
+        return resistencia;
+    }
+
+    public int getDestreza() {
+        return destreza;
+    }
+
+    public int getImpulsao() {
+        return impulsao;
+    }
+
+    public int getJogodecabeca() {
+        return jogodecabeca;
+    }
+
+    public int getRemate() {
+        return remate;
+    }
+
+    public int getPasse() {
+        return passe;
+    }
 }

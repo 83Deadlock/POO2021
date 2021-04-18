@@ -1,2 +1,105 @@
-A,Josefino,2000-05-05,null,1,2,3,4,5,6,7,8
-D,Fernando,2000-05-02,null,1,2,3,4,5,6,11,8
+E,S.L. Benfica,1904,QQD
+G,Odysseas Vlachodimos,1994-04-26,S.L. Benfica,11,11,14,15,5,14,12,14
+G,Mile Svilar,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+L,Alex Grimaldo,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+L,Andre Almeida,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+L,Nuno Tavares,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+L,Gilberto,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+D,Jan Vertonghen,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+D,Nicolas Otamendi,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+D,Lucas Verissimo,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+D,Jardel,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+M,Julien Wiegl,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+M,Adel Taarabt,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+M,Gabriel,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+M,Pizzi,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+L,Rafa,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+L,Luca Waldschmidt,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+L,Everton Cebolinha,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+L,Pedrinho,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+A,Haris Seferovic,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+A,Darwin Nunez,1999-08-27,S.L. Benfica,13,11,10,15,2,14,11,13
+E,F.C. Porto,1893,QQD
+G,Ivan Marchesin,1994-04-26,F.C. Porto,11,11,14,15,5,14,12,14
+G,Diogo Costa,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+L,Wilson Manafá,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+L,Zaidu,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+L,Carraça,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+L,Nanu,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+D,Pepe,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+D,Mbemba,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+D,Sarr,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+D,Diogo Leite,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+M,Sergio Oliveira,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+M,Otavio,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+M,Grujic,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+M,Uribe,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+L,Corona,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+L,Luis Diaz,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+L,Evanilson,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+L,Francisco Conceição,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+A,Marega,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+A,Taremi,1999-08-27,F.C. Porto,13,11,10,15,2,14,11,13
+E,Sporting C.P.,1906,TQT
+G,Adan,1994-04-26,Sporting C.P.,11,11,14,15,5,14,12,14
+G,Luis Maximiliano,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+L,Pedro Porro,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+L,Nuno Mendes,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+L,Antunes,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+L,João Pereira,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+D,Coates,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+D,Fedal,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+D,Neto,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+D,Gonçalo Inácio,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+D,Eduardo Quaresma,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+M,Palhinha,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+M,Joao Mario,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+M,Matheus Nunes,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+M,Daniel Bragança,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+A,Pedro Gonçaves,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+A,Nuno Santos,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+A,Tiago Tomás,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+A,Paulinho,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+A,Jovane Cabral,1999-08-27,Sporting C.P.,13,11,10,15,2,14,11,13
+E,S.C. Braga,1921,QTT
+G,Matheus,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+G,Tiago Sá,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+L,Esgaio,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+L,Zé Carlos,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+L,Sequeira,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+L,Borja,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+D,Tormena,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+D,Raul Silva,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+D,Rolando,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+M,Al Musrati,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+M,Fransergio,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+M,Andre Castro,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+M,Andre Horta,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+M,Joao Novais,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+L,Ricardo Horta,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+L,Nico Gaitan,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+L,Iuri Medeiros,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+L,Lucas Piazon,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+A,Abel Ruiz,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+A,Sporar,1994-04-26,S.C. Braga,11,11,14,15,5,14,12,14
+E,Rio Ave F.C.,1939,QTT
+G,Kieszek,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+G,Magrao,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+L,Ivo Pinto,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+L,Costinha,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+L,Fabio Coentrao,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+L,Pedro Amaral,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+D,Aderlan Santos,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+D,Borevkovic,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+D,Nelson Monte,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+M,Filipe Augusto,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+M,Geraldes,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+M,Tarantini,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+M,Guga,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+M,Nikola Jambor,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+L,Carlos Mané,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+L,Rafael Camacho,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+L,Ronan,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+L,Anderson,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+A,André Pereira,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14
+A,Gelson Dala,1994-04-26,Rio Ave F.C.,11,11,14,15,5,14,12,14

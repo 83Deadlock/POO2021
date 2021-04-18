@@ -38,4 +38,23 @@ public class Avancado extends Jogador {
         int ratingPenaltis = Integer.parseInt(atributos[11]);
         return new Avancado(nome, nascimento, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, ratingPenaltis);
     }
+
+
+    public String toString() {
+        return "Jogador{" +
+                "nome='" + super.getNome() + '\'' +
+                ", dataDeNascimento=" + super.getDataDeNascimento() +
+                ", overall=" + super.getOverall() +
+                ", equipaAtual=" + super.getEquipaAtual() +
+                ", historico=" + super.getHistorico() +
+                ", velocidade=" + super.getVelocidade() +
+                ", resistencia=" + super.getResistencia() +
+                ", destreza=" + super.getDestreza() +
+                ", impulsao=" + super.getImpulsao() +
+                ", jogodecabeca=" + super.getJogodecabeca() +
+                ", remate=" + super.getRemate() +
+                ", passe=" + super.getPasse() +
+                ", penalties=" + rating_penaltis +
+                '}';
+    }
 }
