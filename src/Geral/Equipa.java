@@ -7,4 +7,5 @@ public class Equipa {
     private int anoDaFundacao;
     private List<Jogador> jogadores;
     private int overall;
+    private Constituicao constituicao;
 }
