@@ -1,5 +1,3 @@
-package Geral;
-
 import java.util.List;
 
 public class Jogo {

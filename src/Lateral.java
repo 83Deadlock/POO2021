@@ -1,7 +1,3 @@
-package Jogadores;
-import Geral.Helper;
-import Geral.Jogador;
-
 import java.time.LocalDate;
 
 public class Lateral extends Jogador {

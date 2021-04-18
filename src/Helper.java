@@ -1,5 +1,3 @@
-package Geral;
-
 import java.time.LocalDate;
 
 public class Helper {
