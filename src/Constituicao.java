@@ -10,6 +10,7 @@ public class Constituicao {
     private Jogador[] medios;
     private Jogador[] avançados;
     private Jogador[] laterais;
+    private Jogador[] suplentes;
     private Tatica tatica;
 
     public Constituicao(String tatica){
@@ -20,6 +21,7 @@ public class Constituicao {
                 this.medios = new Jogador[2];
                 this.avançados = new Jogador[2];
                 this.laterais = new Jogador[4];
+                this.suplentes = new Jogador[7];
                 break;
             case "QTT":
                 this.tatica = Tatica.QTT;
@@ -27,6 +29,7 @@ public class Constituicao {
                 this.medios = new Jogador[3];
                 this.avançados = new Jogador[1];
                 this.laterais = new Jogador[4];
+                this.suplentes = new Jogador[7];
                 break;
             case "TQT":
                 this.tatica = Tatica.TQT;
@@ -34,6 +37,7 @@ public class Constituicao {
                 this.medios = new Jogador[2];
                 this.avançados = new Jogador[3];
                 this.laterais = new Jogador[2];
+                this.suplentes = new Jogador[7];
                 break;
             case "QCU":
                 this.tatica = Tatica.QCU;
@@ -41,6 +45,15 @@ public class Constituicao {
                 this.medios = new Jogador[5];
                 this.avançados = new Jogador[1];
                 this.laterais = new Jogador[2];
+                this.suplentes = new Jogador[7];
+                break;
+            case "CTD":
+                this.tatica = Tatica.CTD;
+                this.defesas = new Jogador[3];
+                this.medios = new Jogador[3];
+                this.avançados = new Jogador[2];
+                this.laterais = new Jogador[2];
+                this.suplentes = new Jogador[7];
                 break;
         }
 
@@ -52,10 +65,11 @@ public class Constituicao {
             case TQT -> "3-4-3";
             case QQD -> "4-4-2";
             case QCU -> "4-5-1";
+            case CTD -> "5-3-2";
             default -> "";
         };
     }
-    @Override
+
     public String toString() {
         return "Constituicao{" +
                 "tatica=" + taticToString(tatica) +

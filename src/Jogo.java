@@ -2,12 +2,10 @@ import java.util.List;
 
 public class Jogo {
     private Equipa equipaCasa;
-    private List<Jogador> titularesCasa;
-    private List<Jogador> suplentesCasa;
+    private Constituicao equipaCasaSquad;
     private int subsCasa;
     private Equipa equipaFora;
-    private List<Jogador> titularesFora;
-    private List<Jogador> suplentesFora;
+    private Constituicao equipaForaSquad;
     private int subsFora;
-
+    private Resultado score;
 }

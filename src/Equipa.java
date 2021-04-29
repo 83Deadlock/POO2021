@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Equipa {
     private String nome;
@@ -38,7 +39,16 @@ public class Equipa {
     }
 
     public void calcOverall(){
+        double sum = 0;
 
+        int count = this.jogadores.size();
+        if(count == 0) this.overall = 0;
+        else {
+            for(Jogador j: this.jogadores){
+                sum += j.getOverall();
+            }
+            this.overall = (int) sum/count;
+        }
     }
 
     public static Equipa fromLine(String line) {
