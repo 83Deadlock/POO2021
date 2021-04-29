@@ -36,4 +36,12 @@ public class Resultado {
     public String toString() {
         return this.golosCasa + "-" + this.golosFora;
     }
+
+    public void goloEqCasa(){
+        this.golosCasa++;
+    }
+
+    public void goloEqFora(){
+        this.golosFora++;
+    }
 }

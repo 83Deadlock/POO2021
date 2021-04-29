@@ -8,6 +8,7 @@ public class Jogo {
     private Constituicao equipaForaSquad;
     private int subsFora;
     private Resultado score;
+    private SimulacaoJogo sj = new SimulacaoJogo(this);
 
     public Jogo(Equipa casa, Equipa fora) {
         this.equipaCasa = new Equipa(casa);
@@ -77,23 +78,15 @@ public class Jogo {
 
 
     public void goloCasa(){
-        int golos = this.score.getGolosCasa();
-        golos++;
-        this.score.setGolosCasa(golos);
+        this.score.goloEqCasa();
     }
 
     public void goloFora(){
-        int golos = this.score.getGolosFora();
-        golos++;
-        this.score.setGolosFora(golos);
+        this.score.goloEqFora();
     }
-
-    SimulacaoJogo sj = new SimulacaoJogo(this);
 
     public void startGame() throws InterruptedException {
         sj.start();
     }
-
-
 
 }
