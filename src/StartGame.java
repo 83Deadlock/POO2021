@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class StartGame {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         File jogadores_file = new File("input_files/teste.txt");
         BufferedReader reader = new BufferedReader(new FileReader(jogadores_file));
         String currentLine = reader.readLine();
@@ -51,5 +51,9 @@ public class StartGame {
             System.out.println(e.toString());
         }
 
+        Jogo j1 = new Jogo(equipas.values().stream().filter(e -> e.getNome().equals("F.C. Porto")).findAny().get(),
+                equipas.values().stream().filter(e -> e.getNome().equals("S.L. Benfica")).findAny().get());
+
+        j1.startGame();
     }
 }

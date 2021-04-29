@@ -25,6 +25,14 @@ public class Resultado {
         return golosFora;
     }
 
+    public void setGolosCasa(int golosCasa) {
+        this.golosCasa = golosCasa;
+    }
+
+    public void setGolosFora(int golosFora) {
+        this.golosFora = golosFora;
+    }
+
     public String toString() {
         return this.golosCasa + "-" + this.golosFora;
     }

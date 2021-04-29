@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Equipa {
@@ -16,6 +17,14 @@ public class Equipa {
         this.jogadores = new ArrayList<>();
         this.overall = 0;
         this.constituicao = constituicao;
+    }
+
+    public Equipa(Equipa e) {
+        this.nome = e.getNome();
+        this.anoDaFundacao = e.getAnoDaFundacao();
+        this.jogadores = e.getJogadores();
+        this.overall = e.getOverall();
+        this.constituicao = e.getConstituicao();
     }
 
     public String getNome() {
@@ -58,6 +67,14 @@ public class Equipa {
         Constituicao constituicao = new Constituicao(atributos[3]);
 
         return new Equipa(nome, nascimento, constituicao);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Equipa equipa = (Equipa) o;
+        return anoDaFundacao == equipa.anoDaFundacao && overall == equipa.overall && Objects.equals(nome, equipa.nome) && Objects.equals(jogadores, equipa.jogadores) && Objects.equals(constituicao, equipa.constituicao);
     }
 
     public String toString() {
