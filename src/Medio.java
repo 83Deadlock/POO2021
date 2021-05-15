@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class Medio extends Jogador {
-    private int recup_bola;
+    private int recuperacao;
 
     public Medio(String nome,
                  LocalDate dataDeNascimento,
@@ -13,14 +13,34 @@ public class Medio extends Jogador {
                  int jogodecabeca,
                  int remate,
                  int passe,
-                 int recup_bola) {
+                 int recuperacao) {
         super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
-        this.recup_bola = recup_bola;
+        this.recuperacao = recuperacao;
     }
 
+    public int getRecuperacao() {
+        return recuperacao;
+    }
+
+    public void setRecuperacao(int recuperacao) {
+        this.recuperacao = recuperacao;
+    }
+
+    /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
+     *
+     */
     @Override
     public void calculateOverall() {
+        double overall = (this.getVelocidade() * 0.1) +
+                (this.getResistencia() * 0.2) +
+                (this.getDestreza() * 0.1) +
+                (this.getImpulsao() * 0.05) +
+                (this.getJogodecabeca() * 0.05) +
+                (this.getRemate() * 0.1) +
+                (this.getPasse() * 0.2) +
+                (this.getRecuperacao() * 0.2);
 
+        super.setOverall((int) overall);
     }
 
     public static Medio fromLine(String line) {
@@ -53,7 +73,7 @@ public class Medio extends Jogador {
                 ", jogodecabeca=" + super.getJogodecabeca() +
                 ", remate=" + super.getRemate() +
                 ", passe=" + super.getPasse() +
-                ", recuperação de bola=" + recup_bola +
+                ", recuperação de bola=" + recuperacao +
                 '}';
     }
 }

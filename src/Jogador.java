@@ -7,6 +7,7 @@ public abstract class Jogador {
     private LocalDate dataDeNascimento;
     private int overall;
     private String equipaAtual;
+    private int numeroCamisola;
     private List<String> historico;
 
     // Atributos
@@ -19,8 +20,21 @@ public abstract class Jogador {
     private int passe;
 
     public Jogador() {
-
+        this.nome = "";
+        this.dataDeNascimento = LocalDate.now();
+        this.overall = 0;
+        this.equipaAtual = "";
+        this.numeroCamisola = 0;
+        this.historico = new ArrayList<>();
+        this.velocidade = 0;
+        this.resistencia = 0;
+        this.destreza = 0;
+        this.impulsao = 0;
+        this.jogodecabeca = 0;
+        this.remate = 0;
+        this.passe = 0;
     }
+
     public Jogador(String nome,
                    LocalDate dataDeNascimento,
                    String equipaAtual,
@@ -60,8 +74,16 @@ public abstract class Jogador {
         return overall;
     }
 
+    public void setOverall(int overall) {
+        this.overall = overall;
+    }
+
     public String getEquipaAtual() {
         return equipaAtual;
+    }
+
+    public void setEquipaAtual(String equipaAtual) {
+        this.equipaAtual = equipaAtual;
     }
 
     public List<String> getHistorico() {
@@ -94,5 +116,34 @@ public abstract class Jogador {
 
     public int getPasse() {
         return passe;
+    }
+
+    public int getNumeroCamisola() {
+        return numeroCamisola;
+    }
+
+    public void setNumeroCamisola(int numeroCamisola) {
+        this.numeroCamisola = numeroCamisola;
+    }
+
+    /** Métodos para gestão de um jogador
+     *
+     */
+
+    /** Método utilizado para alterar o número na camisola de um jogador
+     *
+     * @param novo - novo numero da camisola do jogador
+     */
+    public void alteraNumeroCamisola(int novo){
+        this.setNumeroCamisola(novo);
+    }
+
+    /** Altera a equipa atual do jogador e adiciona a sua atual equipa ao seu histórico
+     *
+     * @param nome - Nome da equipa nova do jogador
+     */
+    public void alteraEquipa(String nome){
+        this.historico.add(this.getEquipaAtual()); //Adiciona a equipa atual ao historico
+        this.setEquipaAtual(nome);  //Altera a equipa atual
     }
 }

@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class Lateral extends Jogador {
-    private int rating_cruzamentos;
+    private int cruzamentos;
 
     public Lateral(String nome,
                    LocalDate dataDeNascimento,
@@ -13,14 +13,34 @@ public class Lateral extends Jogador {
                    int jogodecabeca,
                    int remate,
                    int passe,
-                   int rating_cruzamentos) {
+                   int cruzamentos) {
         super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
-        this.rating_cruzamentos = rating_cruzamentos;
+        this.cruzamentos = cruzamentos;
     }
 
+    public int getCruzamentos() {
+        return cruzamentos;
+    }
+
+    public void setCruzamentos(int cruzamentos) {
+        this.cruzamentos = cruzamentos;
+    }
+
+    /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
+     *
+     */
     @Override
     public void calculateOverall() {
+        double overall = (this.getVelocidade() * 0.2) +
+                (this.getResistencia() * 0.2) +
+                (this.getDestreza() * 0.1) +
+                (this.getImpulsao() * 0.05) +
+                (this.getJogodecabeca() * 0.05) +
+                (this.getRemate() * 0.05) +
+                (this.getPasse() * 0.15) +
+                (this.getCruzamentos() * 0.2);
 
+        super.setOverall((int) overall);
     }
 
     public static Lateral fromLine(String line) {
@@ -53,7 +73,7 @@ public class Lateral extends Jogador {
                 ", jogodecabeca=" + super.getJogodecabeca() +
                 ", remate=" + super.getRemate() +
                 ", passe=" + super.getPasse() +
-                ", cruzamentos=" + rating_cruzamentos +
+                ", cruzamentos=" + cruzamentos +
                 '}';
     }
 }

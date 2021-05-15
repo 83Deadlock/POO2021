@@ -18,9 +18,29 @@ public class GuardaRedes extends Jogador {
         this.elasticidade = elasticidade;
     }
 
+    public int getElasticidade() {
+        return elasticidade;
+    }
+
+    public void setElasticidade(int elasticidade) {
+        this.elasticidade = elasticidade;
+    }
+
+    /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
+     *
+     */
     @Override
     public void calculateOverall() {
+        double overall = (this.getVelocidade() * 0.1) +
+                (this.getResistencia() * 0.05) +
+                (this.getDestreza() * 0.2) +
+                (this.getImpulsao() * 0.2) +
+                (this.getJogodecabeca() * 0.05) +
+                (this.getRemate() * 0.05) +
+                (this.getPasse() * 0.15) +
+                (this.getElasticidade() * 0.2);
 
+        super.setOverall((int) overall);
     }
 
     public static GuardaRedes fromLine(String line) {
