@@ -86,4 +86,20 @@ public class Equipa {
                 ", constituicao=" + constituicao +
                 '}';
     }
+
+    public Equipa clone(){
+        return new Equipa(this);
+    }
+
+    public void adicionaJogador(Jogador j){
+        this.jogadores.add(j);
+    }
+
+    public void removeJogador(Jogador j){
+        this.jogadores.remove(j);
+    }
+
+    public String generateID(){
+        return (this.getNome() + this.getAnoDaFundacao());
+    }
 }

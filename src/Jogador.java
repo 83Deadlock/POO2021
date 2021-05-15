@@ -35,15 +35,9 @@ public abstract class Jogador {
         this.passe = 0;
     }
 
-    public Jogador(String nome,
-                   LocalDate dataDeNascimento,
-                   String equipaAtual,
-                   int velocidade,
-                   int resistencia,
-                   int destreza,
-                   int impulsao,
-                   int jogodecabeca,
-                   int remate,
+    public Jogador(String nome, LocalDate dataDeNascimento, String equipaAtual,
+                   int velocidade, int resistencia, int destreza,
+                   int impulsao, int jogodecabeca, int remate,
                    int passe) {
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;
