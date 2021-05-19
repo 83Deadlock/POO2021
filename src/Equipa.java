@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Equipa {
@@ -10,6 +11,7 @@ public class Equipa {
     private List<Jogador> jogadores;
     private int overall;
     private Constituicao constituicao;
+    private final String[] constituicoes = {"QTT", "CTD", "TQT", "QQD", "QCU"};
 
     public Equipa(String nome, int anoDaFundacao, Constituicao constituicao) {
         this.nome = nome;
@@ -25,6 +27,17 @@ public class Equipa {
         this.jogadores = e.getJogadores();
         this.overall = e.getOverall();
         this.constituicao = e.getConstituicao();
+    }
+
+    public Equipa(String nomeEquipa){
+        this.nome = nomeEquipa;
+        //this.anoDaFundacao = ;
+        this.jogadores = new ArrayList<>();
+        this.overall = 0;
+        Random r = new Random();
+        int index = r.nextInt(constituicoes.length);
+        this.constituicao = new Constituicao(constituicoes[index]);
+        this.calcOverall();
     }
 
     public String getNome() {
@@ -62,12 +75,13 @@ public class Equipa {
 
     public static Equipa fromLine(String line) {
         String[] atributos = line.split(",");
-        String nome = atributos[1];
-        int nascimento = Integer.parseInt(atributos[2]);
-        Constituicao constituicao = new Constituicao(atributos[3]);
+        String nome = atributos[0];
+        //int nascimento = Integer.parseInt(atributos[2]);
+        //Constituicao constituicao = new Constituicao(atributos[3]);
 
-        return new Equipa(nome, nascimento, constituicao);
+        return new Equipa(nome);
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -98,6 +112,7 @@ public class Equipa {
     public void removeJogador(Jogador j){
         this.jogadores.remove(j);
     }
+
 
     public String generateID(){
         return (this.getNome() + this.getAnoDaFundacao());

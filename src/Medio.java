@@ -18,6 +18,20 @@ public class Medio extends Jogador {
         this.recuperacao = recuperacao;
     }
 
+    public Medio(String nome,
+                 int numeroCamisola,
+                 int velocidade,
+                 int resistencia,
+                 int destreza,
+                 int impulsao,
+                 int jogodecabeca,
+                 int remate,
+                 int passe,
+                 int recuperacao){
+        super(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+        this.recuperacao = recuperacao;
+    }
+
     public int getRecuperacao() {
         return recuperacao;
     }
@@ -45,19 +59,21 @@ public class Medio extends Jogador {
 
     public static Medio fromLine(String line) {
         String[] atributos = line.split(",");
-        String nome = atributos[1];
-        LocalDate nascimento = Helper.dateFromString(atributos[2]);
-        String equipa = atributos[3];
-        int velocidade = Integer.parseInt(atributos[4]);
-        int resistencia = Integer.parseInt(atributos[5]);
-        int destreza = Integer.parseInt(atributos[6]);
-        int impulsao = Integer.parseInt(atributos[7]);
-        int jogoCabeca = Integer.parseInt(atributos[8]);
-        int remate = Integer.parseInt(atributos[9]);
-        int passe = Integer.parseInt(atributos[10]);
-        int recup = Integer.parseInt(atributos[11]);
-        return new Medio(nome, nascimento, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, recup);
+        String nome = atributos[0];
+        //LocalDate nascimento = Helper.dateFromString(atributos[2]);
+        //String equipa = atributos[3];
+        int numeroCamisola = Integer.parseInt(atributos[1]);
+        int velocidade = Integer.parseInt(atributos[2]);
+        int resistencia = Integer.parseInt(atributos[3]);
+        int destreza = Integer.parseInt(atributos[4]);
+        int impulsao = Integer.parseInt(atributos[5]);
+        int jogoCabeca = Integer.parseInt(atributos[6]);
+        int remate = Integer.parseInt(atributos[7]);
+        int passe = Integer.parseInt(atributos[8]);
+        int recup = Integer.parseInt(atributos[9]);
+        return new Medio(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, recup);
     }
+
 
     public String toString() {
         return "Jogador{" +

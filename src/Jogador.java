@@ -54,6 +54,40 @@ public abstract class Jogador {
         this.calculateOverall();
     }
 
+    public Jogador(String nome, int numeroCamisola, int velocidade, int resistencia, int destreza, int impulsao, int cabeca, int remate, int passe){
+        this.nome = nome;
+        //this.dataDeNascimento = dataDeNascimento;
+        this.overall = 0;
+        //this.equipaAtual = equipaAtual;
+        //this.historico = new ArrayList<String>();
+        this.numeroCamisola = numeroCamisola;
+        this.velocidade = velocidade;
+        this.resistencia = resistencia;
+        this.destreza = destreza;
+        this.impulsao = impulsao;
+        this.jogodecabeca = cabeca;
+        this.remate = remate;
+        this.passe = passe;
+        this.calculateOverall();
+    }
+
+    public Jogador(Jogador j){
+        this.nome = j.getNome();
+        //this.dataDeNascimento = dataDeNascimento;
+        this.overall = j.getOverall();
+        //this.equipaAtual = equipaAtual;
+        //this.historico = new ArrayList<String>();
+        this.numeroCamisola = j.getNumeroCamisola();
+        this.velocidade = j.getVelocidade();
+        this.resistencia = j.getResistencia();
+        this.destreza = j.getDestreza();
+        this.impulsao = j.getImpulsao();
+        this.jogodecabeca = j.getJogodecabeca();
+        this.remate = j.getRemate();
+        this.passe = j.getPasse();
+        this.calculateOverall();
+    }
+
     public abstract void calculateOverall();
 
     public String getNome() {
@@ -140,4 +174,5 @@ public abstract class Jogador {
         this.historico.add(this.getEquipaAtual()); //Adiciona a equipa atual ao historico
         this.setEquipaAtual(nome);  //Altera a equipa atual
     }
+
 }

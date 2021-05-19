@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 public class StartGame {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException, EquipaInvalidaException {
+        /*
         File jogadores_file = new File("input_files/teste.txt");
         BufferedReader reader = new BufferedReader(new FileReader(jogadores_file));
         String currentLine = reader.readLine();
+         */
+        Parser.parse();
 
+
+        /*
         List<Jogador> jogadores = new ArrayList<>();
         Map<String,Equipa> equipas = new HashMap<>();
         while (currentLine != null) {
@@ -47,6 +52,9 @@ public class StartGame {
             currentLine = reader.readLine();
         }
 
+         */
+
+        /*
         for(Equipa e: equipas.values()){
             System.out.println(e.toString());
         }
@@ -55,5 +63,7 @@ public class StartGame {
                 equipas.values().stream().filter(e -> e.getNome().equals("S.L. Benfica")).findAny().get());
 
         j1.startGame();
+
+         */
     }
 }

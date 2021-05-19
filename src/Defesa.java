@@ -16,6 +16,10 @@ public class Defesa extends Jogador {
         super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
     }
 
+    public Defesa(String nome, int numeroCamisola, int velocidade, int resistencia, int destreza, int impulsao, int cabeca, int remate, int passe){
+        super(nome,numeroCamisola,velocidade,resistencia,destreza,impulsao,cabeca,remate,passe);
+    }
+
     /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
      *
      */
@@ -34,18 +38,21 @@ public class Defesa extends Jogador {
 
     public static Defesa fromLine(String line) {
         String[] atributos = line.split(",");
-        String nome = atributos[1];
-        LocalDate nascimento = Helper.dateFromString(atributos[2]);
-        String equipa = atributos[3];
-        int velocidade = Integer.parseInt(atributos[4]);
-        int resistencia = Integer.parseInt(atributos[5]);
-        int destreza = Integer.parseInt(atributos[6]);
-        int impulsao = Integer.parseInt(atributos[7]);
-        int jogoCabeca = Integer.parseInt(atributos[8]);
-        int remate = Integer.parseInt(atributos[9]);
-        int passe = Integer.parseInt(atributos[10]);
-        return new Defesa(nome, nascimento, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
+        String nome = atributos[0];
+        //LocalDate nascimento = Helper.dateFromString(atributos[2]);
+        //String equipa = atributos[3];
+        int numeroCamisola = Integer.parseInt(atributos[1]);
+        int velocidade = Integer.parseInt(atributos[2]);
+        int resistencia = Integer.parseInt(atributos[3]);
+        int destreza = Integer.parseInt(atributos[4]);
+        int impulsao = Integer.parseInt(atributos[5]);
+        int jogoCabeca = Integer.parseInt(atributos[6]);
+        int remate = Integer.parseInt(atributos[7]);
+        int passe = Integer.parseInt(atributos[8]);
+        return new Defesa(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
     }
+
+
 
     public String toString() {
         return "Jogador{" +

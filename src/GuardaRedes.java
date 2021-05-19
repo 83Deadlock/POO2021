@@ -18,6 +18,11 @@ public class GuardaRedes extends Jogador {
         this.elasticidade = elasticidade;
     }
 
+    public GuardaRedes(String nome, int numeroCamisola, int velocidade, int resistência, int destreza, int impulsao, int cabeca, int remate, int passe, int elasticidade){
+        super(nome,numeroCamisola,velocidade,resistência,destreza,impulsao,cabeca,remate,passe);
+        this.elasticidade = elasticidade;
+    }
+
     public int getElasticidade() {
         return elasticidade;
     }
@@ -45,19 +50,21 @@ public class GuardaRedes extends Jogador {
 
     public static GuardaRedes fromLine(String line) {
         String[] atributos = line.split(",");
-        String nome = atributos[1];
-        LocalDate nascimento = Helper.dateFromString(atributos[2]);
-        String equipa = atributos[3];
-        int velocidade = Integer.parseInt(atributos[4]);
-        int resistencia = Integer.parseInt(atributos[5]);
-        int destreza = Integer.parseInt(atributos[6]);
-        int impulsao = Integer.parseInt(atributos[7]);
-        int jogoCabeca = Integer.parseInt(atributos[8]);
-        int remate = Integer.parseInt(atributos[9]);
-        int passe = Integer.parseInt(atributos[10]);
-        int elasticidade = Integer.parseInt(atributos[11]);
-        return new GuardaRedes(nome, nascimento, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, elasticidade);
+        String nome = atributos[0];
+        //LocalDate nascimento = Helper.dateFromString(atributos[2]);
+        //String equipa = atributos[3];
+        int numeroCamisola = Integer.parseInt(atributos[1]);
+        int velocidade = Integer.parseInt(atributos[2]);
+        int resistencia = Integer.parseInt(atributos[3]);
+        int destreza = Integer.parseInt(atributos[4]);
+        int impulsao = Integer.parseInt(atributos[5]);
+        int jogoCabeca = Integer.parseInt(atributos[6]);
+        int remate = Integer.parseInt(atributos[7]);
+        int passe = Integer.parseInt(atributos[8]);
+        int elasticidade = Integer.parseInt(atributos[9]);
+        return new GuardaRedes(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, elasticidade);
     }
+
 
     public String toString() {
         return "Jogador{" +

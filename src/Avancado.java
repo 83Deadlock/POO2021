@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Random;
 
 public class Avancado extends Jogador {
 
@@ -13,6 +14,18 @@ public class Avancado extends Jogador {
                     int remate,
                     int passe) {
         super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+    }
+
+    public Avancado(String nome,
+                    int numeroCamisola,
+                    int velocidade,
+                    int resistencia,
+                    int destreza,
+                    int impulsao,
+                    int jogodecabeca,
+                    int remate,
+                    int passe) {
+        super(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
     }
 
     /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
@@ -33,18 +46,19 @@ public class Avancado extends Jogador {
 
     public static Avancado fromLine(String line) {
         String[] atributos = line.split(",");
-        String nome = atributos[1];
-        LocalDate nascimento = Helper.dateFromString(atributos[2]);
-        String equipa = atributos[3];
-        int velocidade = Integer.parseInt(atributos[4]);
-        int resistencia = Integer.parseInt(atributos[5]);
-        int destreza = Integer.parseInt(atributos[6]);
-        int impulsao = Integer.parseInt(atributos[7]);
-        int jogoCabeca = Integer.parseInt(atributos[8]);
-        int remate = Integer.parseInt(atributos[9]);
-        int passe = Integer.parseInt(atributos[10]);
-        int ratingPenaltis = Integer.parseInt(atributos[11]);
-        return new Avancado(nome, nascimento, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
+        String nome = atributos[0];
+        //LocalDate nascimento = Helper.dateFromString(atributos[2]);
+        //String equipa = atributos[3];
+        int numeroCamisola = Integer.parseInt(atributos[1]);
+        int velocidade = Integer.parseInt(atributos[2]);
+        int resistencia = Integer.parseInt(atributos[3]);
+        int destreza = Integer.parseInt(atributos[4]);
+        int impulsao = Integer.parseInt(atributos[5]);
+        int jogoCabeca = Integer.parseInt(atributos[6]);
+        int remate = Integer.parseInt(atributos[7]);
+        int passe = Integer.parseInt(atributos[8]);
+        //int ratingPenaltis = random;
+        return new Avancado(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
     }
 
 
