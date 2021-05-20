@@ -2,7 +2,7 @@ public class SimulacaoJogo {
 
     private int estado;
     private Jogo j;
-
+    /*
     public SimulacaoJogo(Jogo j){
         this.j = j;
         this.estado = 1; // 1- Por iniciar || 2- A decorrer || 0- Terminado
@@ -79,5 +79,5 @@ public class SimulacaoJogo {
 
     public void setEstado(int estado) {
         this.estado = estado;
-    }
+    }*/
 }

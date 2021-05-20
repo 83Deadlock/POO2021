@@ -11,10 +11,12 @@ public class StartGame {
         Parser p = new Parser();
         p.parse();
         model.setGestorEquipas(p.getGe());
+        model.setGestorJogos(p.getGj());
 
-        GuardaRedes j = (GuardaRedes) model.getGestorEquipas().getEquipas().get("Mahler Athletic").getJogadores().get(36);
 
-        System.out.println(j.toString());
+        Jogo jogo = model.getGestorJogos().getJogos().get(0);
+
+        System.out.println(jogo.toString());
 
     }
 }

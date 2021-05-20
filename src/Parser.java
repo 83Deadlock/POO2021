@@ -10,17 +10,21 @@ import java.util.Map;
 public class Parser {
 
     GestorEquipas ge;
+    GestorJogos gj;
 
     public Parser(){
         this.ge = new GestorEquipas();
+        this.gj = new GestorJogos();
     }
 
-    public Parser(GestorEquipas ge){
+    public Parser(GestorEquipas ge, GestorJogos gj){
         this.ge = new GestorEquipas(ge);
+        this.gj = new GestorJogos(gj);
     }
 
     public Parser(Parser p){
         this.ge = p.getGe();
+        this.gj = p.getGj();
     }
 
     public GestorEquipas getGe() {
@@ -29,6 +33,14 @@ public class Parser {
 
     public void setGe(GestorEquipas ge) {
         this.ge = ge.clone();
+    }
+
+    public GestorJogos getGj() {
+        return gj.clone();
+    }
+
+    public void setGj(GestorJogos gj) {
+        this.gj = gj.clone();
     }
 
     public void parse() throws EquipaInvalidaException {
@@ -97,7 +109,7 @@ public class Parser {
 
                 case "Jogo":
                     Jogo jo = Jogo.fromLine(linhaPartida[1]);
-                    jogos.add(jo);
+                    this.gj.adicionaJogo(jo);
                     break;
                 default:
                     throw new EquipaInvalidaException();

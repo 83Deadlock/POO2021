@@ -1,16 +1,17 @@
 import javax.swing.text.html.parser.Parser;
+import java.security.Guard;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Constituicao {
-    private enum Tatica { QTT, CTD, TQT, QQD, QCU }
+    private enum Tatica { QTT, QQD}
     private Jogador guardaRedes;
     private Jogador[] defesas;
     private Jogador[] medios;
     private Jogador[] avançados;
     private Jogador[] laterais;
-    private Jogador[] suplentes;
+    private Jogador[] extremos;
     private Tatica tatica;
 
     public Constituicao(String tatica){
@@ -18,54 +19,26 @@ public class Constituicao {
             case "QQD":
                 this.tatica = Tatica.QQD;
                 this.defesas = new Jogador[2];
+                this.laterais = new Jogador[2];
                 this.medios = new Jogador[2];
+                this.extremos = new Jogador[2];
                 this.avançados = new Jogador[2];
-                this.laterais = new Jogador[4];
-                this.suplentes = new Jogador[7];
                 break;
             case "QTT":
                 this.tatica = Tatica.QTT;
                 this.defesas = new Jogador[2];
+                this.laterais = new Jogador[2];
                 this.medios = new Jogador[3];
+                this.extremos = new Jogador[2];
                 this.avançados = new Jogador[1];
-                this.laterais = new Jogador[4];
-                this.suplentes = new Jogador[7];
-                break;
-            case "TQT":
-                this.tatica = Tatica.TQT;
-                this.defesas = new Jogador[3];
-                this.medios = new Jogador[2];
-                this.avançados = new Jogador[3];
-                this.laterais = new Jogador[2];
-                this.suplentes = new Jogador[7];
-                break;
-            case "QCU":
-                this.tatica = Tatica.QCU;
-                this.defesas = new Jogador[2];
-                this.medios = new Jogador[5];
-                this.avançados = new Jogador[1];
-                this.laterais = new Jogador[2];
-                this.suplentes = new Jogador[7];
-                break;
-            case "CTD":
-                this.tatica = Tatica.CTD;
-                this.defesas = new Jogador[3];
-                this.medios = new Jogador[3];
-                this.avançados = new Jogador[2];
-                this.laterais = new Jogador[2];
-                this.suplentes = new Jogador[7];
                 break;
         }
-
     }
 
     private String taticToString(Tatica t){
         return switch (t) {
             case QTT -> "4-3-3";
-            case TQT -> "3-4-3";
             case QQD -> "4-4-2";
-            case QCU -> "4-5-1";
-            case CTD -> "5-3-2";
             default -> "";
         };
     }
@@ -74,5 +47,57 @@ public class Constituicao {
         return "Constituicao{" +
                 "tatica=" + taticToString(tatica) +
                 '}';
+    }
+
+    public void setGuardaRedes(Jogador j){
+        this.guardaRedes = j;
+    }
+
+    public Jogador[] getDefesas() {
+        return defesas;
+    }
+
+    public void setDefesas(Jogador[] defesas) {
+        this.defesas = defesas;
+    }
+
+    public Jogador[] getMedios() {
+        return medios;
+    }
+
+    public void setMedios(Jogador[] medios) {
+        this.medios = medios;
+    }
+
+    public Jogador[] getAvançados() {
+        return avançados;
+    }
+
+    public void setAvançados(Jogador[] avançados) {
+        this.avançados = avançados;
+    }
+
+    public Jogador[] getLaterais() {
+        return laterais;
+    }
+
+    public void setLaterais(Jogador[] laterais) {
+        this.laterais = laterais;
+    }
+
+    public Jogador[] getExtremos() {
+        return extremos;
+    }
+
+    public void setExtremos(Jogador[] extremos) {
+        this.extremos = extremos;
+    }
+
+    public Tatica getTatica() {
+        return tatica;
+    }
+
+    public void setTatica(Tatica tatica) {
+        this.tatica = tatica;
     }
 }

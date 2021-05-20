@@ -38,4 +38,8 @@ public class GestorJogos {
     public GestorJogos clone(){
         return new GestorJogos(this);
     }
+
+    public void adicionaJogo(Jogo j){
+        this.jogos.add(j.clone());
+    }
 }

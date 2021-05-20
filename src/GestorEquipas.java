@@ -51,4 +51,12 @@ public class GestorEquipas {
     public void removeEquipa(Equipa e){
         equipas.remove(e.getNome(),e);
     }
+
+    public void transfereJogador(int numeroCamisola, String antigaEquipa,String novaEquipa){
+        Jogador j = this.equipas.get(antigaEquipa).getJogadores().get(numeroCamisola);
+        this.equipas.get(antigaEquipa).removeJogador(numeroCamisola);
+        j.alteraEquipa(novaEquipa);
+        this.equipas.get(antigaEquipa).adicionaJogador(j);
+    }
+
 }

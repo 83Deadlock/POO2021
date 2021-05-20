@@ -96,8 +96,6 @@ public class Equipa {
         return new Equipa(nome);
     }
 
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -120,10 +118,25 @@ public class Equipa {
     }
 
     public void adicionaJogador(Jogador j){
+        if(this.jogadores.keySet().contains(j.getNumeroCamisola())){
+            j.setNumeroCamisola(findProxNumeroDisponivel(j.getNumeroCamisola()));
+        }
         this.jogadores.put(j.getNumeroCamisola(),j);
     }
 
-    public void removeJogador(Jogador j){
-        this.jogadores.remove(j);
+    public void removeJogador(int numero){
+        this.jogadores.remove(numero);
+    }
+
+    public int findProxNumeroDisponivel(int numeroAtual){
+        int ret = numeroAtual;
+        while(this.jogadores.keySet().contains(ret)){
+            if(ret == 99){
+                ret = 1;
+            } else {
+                ret++;
+            }
+        }
+        return ret;
     }
 }
