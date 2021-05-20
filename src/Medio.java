@@ -4,7 +4,7 @@ public class Medio extends Jogador {
     private int recuperacao;
 
     public Medio(String nome,
-                 LocalDate dataDeNascimento,
+                 int numeroCamisola,
                  String equipaAtual,
                  int velocidade,
                  int resistencia,
@@ -14,22 +14,14 @@ public class Medio extends Jogador {
                  int remate,
                  int passe,
                  int recuperacao) {
-        super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+        super(nome, numeroCamisola, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
         this.recuperacao = recuperacao;
     }
 
-    public Medio(String nome,
-                 int numeroCamisola,
-                 int velocidade,
-                 int resistencia,
-                 int destreza,
-                 int impulsao,
-                 int jogodecabeca,
-                 int remate,
-                 int passe,
-                 int recuperacao){
-        super(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
-        this.recuperacao = recuperacao;
+    public Medio (Medio j){
+        super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
+                j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
+        this.recuperacao = j.getRecuperacao();
     }
 
     public int getRecuperacao() {
@@ -57,11 +49,10 @@ public class Medio extends Jogador {
         super.setOverall((int) overall);
     }
 
-    public static Medio fromLine(String line) {
+    public static Medio fromLine(String line, String nomeEquipa) {
         String[] atributos = line.split(",");
         String nome = atributos[0];
-        //LocalDate nascimento = Helper.dateFromString(atributos[2]);
-        //String equipa = atributos[3];
+        String equipa = nomeEquipa;
         int numeroCamisola = Integer.parseInt(atributos[1]);
         int velocidade = Integer.parseInt(atributos[2]);
         int resistencia = Integer.parseInt(atributos[3]);
@@ -71,14 +62,13 @@ public class Medio extends Jogador {
         int remate = Integer.parseInt(atributos[7]);
         int passe = Integer.parseInt(atributos[8]);
         int recup = Integer.parseInt(atributos[9]);
-        return new Medio(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, recup);
+        return new Medio(nome, numeroCamisola, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, recup);
     }
 
 
     public String toString() {
         return "Jogador{" +
                 "nome='" + super.getNome() + '\'' +
-                ", dataDeNascimento=" + super.getDataDeNascimento() +
                 ", overall=" + super.getOverall() +
                 ", equipaAtual=" + super.getEquipaAtual() +
                 ", historico=" + super.getHistorico() +
@@ -92,4 +82,9 @@ public class Medio extends Jogador {
                 ", recuperação de bola=" + recuperacao +
                 '}';
     }
+
+    public Medio clone(){
+        return new Medio(this);
+    }
+
 }

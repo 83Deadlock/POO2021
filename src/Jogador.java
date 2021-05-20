@@ -1,14 +1,17 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public abstract class Jogador {
     private String nome;
-    private LocalDate dataDeNascimento;
+
     private int overall;
-    private String equipaAtual;
     private int numeroCamisola;
-    private List<String> historico;
+    private Set<String> historico;
+    private String equipaAtual;
 
     // Atributos
     private int velocidade;
@@ -21,11 +24,10 @@ public abstract class Jogador {
 
     public Jogador() {
         this.nome = "";
-        this.dataDeNascimento = LocalDate.now();
         this.overall = 0;
-        this.equipaAtual = "";
         this.numeroCamisola = 0;
-        this.historico = new ArrayList<>();
+        this.historico = new TreeSet<String>();
+        this.equipaAtual = "";
         this.velocidade = 0;
         this.resistencia = 0;
         this.destreza = 0;
@@ -35,32 +37,13 @@ public abstract class Jogador {
         this.passe = 0;
     }
 
-    public Jogador(String nome, LocalDate dataDeNascimento, String equipaAtual,
-                   int velocidade, int resistencia, int destreza,
-                   int impulsao, int jogodecabeca, int remate,
-                   int passe) {
+    public Jogador(String nome, int numeroCamisola, String equipaAtual, int velocidade, int resistencia, int destreza, int impulsao, int cabeca, int remate, int passe){
         this.nome = nome;
-        this.dataDeNascimento = dataDeNascimento;
         this.overall = 0;
-        this.equipaAtual = equipaAtual;
-        this.historico = new ArrayList<String>();
-        this.velocidade = velocidade;
-        this.resistencia = resistencia;
-        this.destreza = destreza;
-        this.impulsao = impulsao;
-        this.jogodecabeca = jogodecabeca;
-        this.remate = remate;
-        this.passe = passe;
-        this.calculateOverall();
-    }
-
-    public Jogador(String nome, int numeroCamisola, int velocidade, int resistencia, int destreza, int impulsao, int cabeca, int remate, int passe){
-        this.nome = nome;
-        //this.dataDeNascimento = dataDeNascimento;
-        this.overall = 0;
-        //this.equipaAtual = equipaAtual;
-        //this.historico = new ArrayList<String>();
         this.numeroCamisola = numeroCamisola;
+        this.historico = new TreeSet<>();
+        this.equipaAtual = equipaAtual;
+        this.historico.add(equipaAtual); //Adiciona a equipa do jogador ao seu histórico
         this.velocidade = velocidade;
         this.resistencia = resistencia;
         this.destreza = destreza;
@@ -73,10 +56,9 @@ public abstract class Jogador {
 
     public Jogador(Jogador j){
         this.nome = j.getNome();
-        //this.dataDeNascimento = dataDeNascimento;
         this.overall = j.getOverall();
-        //this.equipaAtual = equipaAtual;
-        //this.historico = new ArrayList<String>();
+        this.historico = new TreeSet<>(j.getHistorico());
+        this.equipaAtual = j.getEquipaAtual();
         this.numeroCamisola = j.getNumeroCamisola();
         this.velocidade = j.getVelocidade();
         this.resistencia = j.getResistencia();
@@ -94,10 +76,6 @@ public abstract class Jogador {
         return nome;
     }
 
-    public LocalDate getDataDeNascimento() {
-        return dataDeNascimento;
-    }
-
     public int getOverall() {
         return overall;
     }
@@ -106,16 +84,16 @@ public abstract class Jogador {
         this.overall = overall;
     }
 
+    public Set<String> getHistorico() {
+        return this.historico.stream().collect(Collectors.toSet());
+    }
+
     public String getEquipaAtual() {
         return equipaAtual;
     }
 
     public void setEquipaAtual(String equipaAtual) {
         this.equipaAtual = equipaAtual;
-    }
-
-    public List<String> getHistorico() {
-        return historico;
     }
 
     public int getVelocidade() {
@@ -154,6 +132,7 @@ public abstract class Jogador {
         this.numeroCamisola = numeroCamisola;
     }
 
+
     /** Métodos para gestão de um jogador
      *
      */
@@ -166,13 +145,13 @@ public abstract class Jogador {
         this.setNumeroCamisola(novo);
     }
 
-    /** Altera a equipa atual do jogador e adiciona a sua atual equipa ao seu histórico
+    /** Altera a equipa do Jogador
      *
-     * @param nome - Nome da equipa nova do jogador
+     * @param nomeEquipa - Nome da equipa nova do jogador
      */
-    public void alteraEquipa(String nome){
-        this.historico.add(this.getEquipaAtual()); //Adiciona a equipa atual ao historico
-        this.setEquipaAtual(nome);  //Altera a equipa atual
+    public void alteraEquipa(String nomeEquipa){
+        this.setEquipaAtual(nomeEquipa);
+        this.historico.add(nomeEquipa);
     }
 
 }

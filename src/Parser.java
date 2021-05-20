@@ -8,57 +8,93 @@ import java.util.List;
 import java.util.Map;
 
 public class Parser {
-    public static void parse() throws EquipaInvalidaException {
+
+    GestorEquipas ge;
+
+    public Parser(){
+        this.ge = new GestorEquipas();
+    }
+
+    public Parser(GestorEquipas ge){
+        this.ge = new GestorEquipas(ge);
+    }
+
+    public Parser(Parser p){
+        this.ge = p.getGe();
+    }
+
+    public GestorEquipas getGe() {
+        return ge.clone();
+    }
+
+    public void setGe(GestorEquipas ge) {
+        this.ge = ge.clone();
+    }
+
+    public void parse() throws EquipaInvalidaException {
         List<String> linhas = lerFicheiro("input_files/logs.txt");
-        Map<String, Equipa> equipas = new HashMap<>(); //nome, equipa
+
+
         Map<Integer, Jogador> jogadores = new HashMap<>(); //numero, jogador
         List<Jogo> jogos = new ArrayList<>();
+
         Equipa ultima = null;
         Jogador j = null;
+
         String[] linhaPartida;
+
         for (String linha : linhas) {
             linhaPartida = linha.split(":", 2);
             switch (linhaPartida[0]) {
                 case "Equipa":
                     Equipa e = Equipa.fromLine(linhaPartida[1]);
-                    equipas.put(e.getNome(), e);
+                    if(ultima != null){
+                        this.ge.adicionaEquipa(ultima);
+                    }
                     ultima = e;
+
                     break;
+
                 case "Guarda-Redes":
-                    j = GuardaRedes.fromLine(linhaPartida[1]);
+                    j = GuardaRedes.fromLine(linhaPartida[1],ultima.getNome());
                     jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
+
                 case "Defesa":
-                    j = Defesa.fromLine(linhaPartida[1]);
+                    j = Defesa.fromLine(linhaPartida[1],ultima.getNome());
                     jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
+
                 case "Medio":
-                    j = Medio.fromLine(linhaPartida[1]);
+                    j = Medio.fromLine(linhaPartida[1],ultima.getNome());
                     jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
+
                 case "Lateral":
-                    j = Lateral.fromLine(linhaPartida[1]);
+                    j = Lateral.fromLine(linhaPartida[1],ultima.getNome());
                     jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
+
                 case "Avancado":
-                    j = Avancado.fromLine(linhaPartida[1]);
+                    j = Avancado.fromLine(linhaPartida[1],ultima.getNome());
                     jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
+
                 case "Jogo":
                     Jogo jo = Jogo.fromLine(linhaPartida[1]);
                     jogos.add(jo);

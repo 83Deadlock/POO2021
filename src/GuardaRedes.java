@@ -4,7 +4,7 @@ public class GuardaRedes extends Jogador {
     private int elasticidade;
 
     public GuardaRedes(String nome,
-                       LocalDate dataDeNascimento,
+                       int numeroCamisola,
                        String equipaAtual,
                        int velocidade,
                        int resistencia,
@@ -14,13 +14,14 @@ public class GuardaRedes extends Jogador {
                        int remate,
                        int passe,
                        int elasticidade) {
-        super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+        super(nome, numeroCamisola, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
         this.elasticidade = elasticidade;
     }
 
-    public GuardaRedes(String nome, int numeroCamisola, int velocidade, int resistência, int destreza, int impulsao, int cabeca, int remate, int passe, int elasticidade){
-        super(nome,numeroCamisola,velocidade,resistência,destreza,impulsao,cabeca,remate,passe);
-        this.elasticidade = elasticidade;
+    public GuardaRedes (GuardaRedes j){
+        super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
+                j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
+        this.elasticidade = j.getElasticidade();
     }
 
     public int getElasticidade() {
@@ -48,11 +49,10 @@ public class GuardaRedes extends Jogador {
         super.setOverall((int) overall);
     }
 
-    public static GuardaRedes fromLine(String line) {
+    public static GuardaRedes fromLine(String line, String nomeEquipa) {
         String[] atributos = line.split(",");
         String nome = atributos[0];
-        //LocalDate nascimento = Helper.dateFromString(atributos[2]);
-        //String equipa = atributos[3];
+        String equipa = nomeEquipa;
         int numeroCamisola = Integer.parseInt(atributos[1]);
         int velocidade = Integer.parseInt(atributos[2]);
         int resistencia = Integer.parseInt(atributos[3]);
@@ -62,14 +62,13 @@ public class GuardaRedes extends Jogador {
         int remate = Integer.parseInt(atributos[7]);
         int passe = Integer.parseInt(atributos[8]);
         int elasticidade = Integer.parseInt(atributos[9]);
-        return new GuardaRedes(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, elasticidade);
+        return new GuardaRedes(nome, numeroCamisola, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, elasticidade);
     }
 
 
     public String toString() {
         return "Jogador{" +
                 "nome='" + super.getNome() + '\'' +
-                ", dataDeNascimento=" + super.getDataDeNascimento() +
                 ", overall=" + super.getOverall() +
                 ", equipaAtual=" + super.getEquipaAtual() +
                 ", historico=" + super.getHistorico() +
@@ -82,5 +81,9 @@ public class GuardaRedes extends Jogador {
                 ", passe=" + super.getPasse() +
                 ", elasticidade=" + elasticidade +
                 '}';
+    }
+
+    public GuardaRedes clone(){
+        return new GuardaRedes(this);
     }
 }

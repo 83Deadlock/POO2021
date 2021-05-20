@@ -4,7 +4,7 @@ import java.util.Random;
 public class Avancado extends Jogador {
 
     public Avancado(String nome,
-                    LocalDate dataDeNascimento,
+                    int numeroCamisola,
                     String equipaAtual,
                     int velocidade,
                     int resistencia,
@@ -13,20 +13,14 @@ public class Avancado extends Jogador {
                     int jogodecabeca,
                     int remate,
                     int passe) {
-        super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+        super(nome, numeroCamisola, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
     }
 
-    public Avancado(String nome,
-                    int numeroCamisola,
-                    int velocidade,
-                    int resistencia,
-                    int destreza,
-                    int impulsao,
-                    int jogodecabeca,
-                    int remate,
-                    int passe) {
-        super(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+    public Avancado (Avancado j){
+        super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
+                j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
     }
+
 
     /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
      *
@@ -44,11 +38,9 @@ public class Avancado extends Jogador {
         super.setOverall((int) overall);
     }
 
-    public static Avancado fromLine(String line) {
+    public static Avancado fromLine(String line, String nomeEquipa) {
         String[] atributos = line.split(",");
         String nome = atributos[0];
-        //LocalDate nascimento = Helper.dateFromString(atributos[2]);
-        //String equipa = atributos[3];
         int numeroCamisola = Integer.parseInt(atributos[1]);
         int velocidade = Integer.parseInt(atributos[2]);
         int resistencia = Integer.parseInt(atributos[3]);
@@ -57,15 +49,13 @@ public class Avancado extends Jogador {
         int jogoCabeca = Integer.parseInt(atributos[6]);
         int remate = Integer.parseInt(atributos[7]);
         int passe = Integer.parseInt(atributos[8]);
-        //int ratingPenaltis = random;
-        return new Avancado(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
+        return new Avancado(nome, numeroCamisola, nomeEquipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
     }
 
 
     public String toString() {
         return "Jogador{" +
                 "nome='" + super.getNome() + '\'' +
-                ", dataDeNascimento=" + super.getDataDeNascimento() +
                 ", overall=" + super.getOverall() +
                 ", equipaAtual=" + super.getEquipaAtual() +
                 ", historico=" + super.getHistorico() +
@@ -77,5 +67,9 @@ public class Avancado extends Jogador {
                 ", remate=" + super.getRemate() +
                 ", passe=" + super.getPasse() +
                 '}';
+    }
+
+    public Avancado clone(){
+        return new Avancado(this);
     }
 }

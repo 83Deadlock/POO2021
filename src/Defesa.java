@@ -2,9 +2,8 @@ import java.time.LocalDate;
 
 public class Defesa extends Jogador {
 
-
     public Defesa(String nome,
-                  LocalDate dataDeNascimento,
+                  int numeroCamisola,
                   String equipaAtual,
                   int velocidade,
                   int resistencia,
@@ -13,11 +12,12 @@ public class Defesa extends Jogador {
                   int jogodecabeca,
                   int remate,
                   int passe) {
-        super(nome, dataDeNascimento, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+        super(nome, numeroCamisola, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
     }
 
-    public Defesa(String nome, int numeroCamisola, int velocidade, int resistencia, int destreza, int impulsao, int cabeca, int remate, int passe){
-        super(nome,numeroCamisola,velocidade,resistencia,destreza,impulsao,cabeca,remate,passe);
+    public Defesa (Defesa j){
+        super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
+                j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
     }
 
     /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
@@ -36,11 +36,11 @@ public class Defesa extends Jogador {
         super.setOverall((int) overall);
     }
 
-    public static Defesa fromLine(String line) {
+    public static Defesa fromLine(String line, String nomeEquipa) {
         String[] atributos = line.split(",");
         String nome = atributos[0];
         //LocalDate nascimento = Helper.dateFromString(atributos[2]);
-        //String equipa = atributos[3];
+        String equipa = nomeEquipa;
         int numeroCamisola = Integer.parseInt(atributos[1]);
         int velocidade = Integer.parseInt(atributos[2]);
         int resistencia = Integer.parseInt(atributos[3]);
@@ -49,7 +49,7 @@ public class Defesa extends Jogador {
         int jogoCabeca = Integer.parseInt(atributos[6]);
         int remate = Integer.parseInt(atributos[7]);
         int passe = Integer.parseInt(atributos[8]);
-        return new Defesa(nome, numeroCamisola, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
+        return new Defesa(nome, numeroCamisola, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
     }
 
 
@@ -57,7 +57,6 @@ public class Defesa extends Jogador {
     public String toString() {
         return "Jogador{" +
                 "nome='" + super.getNome() + '\'' +
-                ", dataDeNascimento=" + super.getDataDeNascimento() +
                 ", overall=" + super.getOverall() +
                 ", equipaAtual=" + super.getEquipaAtual() +
                 ", historico=" + super.getHistorico() +
@@ -70,4 +69,9 @@ public class Defesa extends Jogador {
                 ", passe=" + super.getPasse() +
                 '}';
     }
+
+    public Defesa clone(){
+        return new Defesa(this);
+    }
+
 }

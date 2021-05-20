@@ -1,14 +1,11 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Equipa {
     private String nome;
     private int anoDaFundacao;
-    private List<Jogador> jogadores;
+    private Map<Integer,Jogador> jogadores;
     private int overall;
     private Constituicao constituicao;
     private final String[] constituicoes = {"QTT", "CTD", "TQT", "QQD", "QCU"};
@@ -16,7 +13,7 @@ public class Equipa {
     public Equipa(String nome, int anoDaFundacao, Constituicao constituicao) {
         this.nome = nome;
         this.anoDaFundacao = anoDaFundacao;
-        this.jogadores = new ArrayList<>();
+        this.jogadores = new HashMap<>();
         this.overall = 0;
         this.constituicao = constituicao;
     }
@@ -32,7 +29,7 @@ public class Equipa {
     public Equipa(String nomeEquipa){
         this.nome = nomeEquipa;
         //this.anoDaFundacao = ;
-        this.jogadores = new ArrayList<>();
+        this.jogadores = new HashMap<>();
         this.overall = 0;
         Random r = new Random();
         int index = r.nextInt(constituicoes.length);
@@ -48,8 +45,28 @@ public class Equipa {
         return anoDaFundacao;
     }
 
-    public List<Jogador> getJogadores() {
-        return jogadores;
+    public Map<Integer,Jogador> getJogadores() {
+        Map<Integer,Jogador> ret = new HashMap<>();
+
+        for(Integer t: this.jogadores.keySet()){
+            if(this.jogadores.get(t) instanceof GuardaRedes){
+                GuardaRedes j = ((GuardaRedes) this.jogadores.get(t)).clone();
+                ret.put(t,j);
+            } else if (this.jogadores.get(t) instanceof Defesa){
+                Defesa j = ((Defesa) this.jogadores.get(t)).clone();
+                ret.put(t,j);
+            } else if (this.jogadores.get(t) instanceof Lateral){
+                Lateral j = ((Lateral) this.jogadores.get(t)).clone();
+                ret.put(t,j);
+            } else if (this.jogadores.get(t) instanceof Medio){
+                Medio j = ((Medio) this.jogadores.get(t)).clone();
+                ret.put(t,j);
+            } else if (this.jogadores.get(t) instanceof Avancado){
+                Avancado j = ((Avancado) this.jogadores.get(t)).clone();
+                ret.put(t,j);
+            }
+        }
+        return ret;
     }
 
     public int getOverall() {
@@ -63,10 +80,10 @@ public class Equipa {
     public void calcOverall(){
         double sum = 0;
 
-        int count = this.jogadores.size();
+        int count = this.jogadores.keySet().size();
         if(count == 0) this.overall = 0;
         else {
-            for(Jogador j: this.jogadores){
+            for(Jogador j: this.jogadores.values()){
                 sum += j.getOverall();
             }
             this.overall = (int) sum/count;
@@ -76,9 +93,6 @@ public class Equipa {
     public static Equipa fromLine(String line) {
         String[] atributos = line.split(",");
         String nome = atributos[0];
-        //int nascimento = Integer.parseInt(atributos[2]);
-        //Constituicao constituicao = new Constituicao(atributos[3]);
-
         return new Equipa(nome);
     }
 
@@ -106,15 +120,10 @@ public class Equipa {
     }
 
     public void adicionaJogador(Jogador j){
-        this.jogadores.add(j);
+        this.jogadores.put(j.getNumeroCamisola(),j);
     }
 
     public void removeJogador(Jogador j){
         this.jogadores.remove(j);
-    }
-
-
-    public String generateID(){
-        return (this.getNome() + this.getAnoDaFundacao());
     }
 }

@@ -7,14 +7,12 @@ import java.util.Map;
 public class Jogo {
     private Equipa equipaCasa;
     private Constituicao equipaCasaSquad;
-    //private int subsCasa;
+
     private Equipa equipaFora;
     private Constituicao equipaForaSquad;
-    //private int subsFora;
+
     private Resultado score;
     //private int estado; // 1- Por iniciar || 2- A decorrer || 0- Terminado
-    private int scoreCasa;
-    private int scoreFora;
     private LocalDate data;
     private List<Integer> jogadoresCasa;
     private Map<Integer,Integer> subsCasa;
@@ -42,13 +40,20 @@ public class Jogo {
         //this.subsFora = 5;
         this.score = new Resultado();
         //this.estado = 1;
-        this.scoreCasa = scoreCasa;
-        this.scoreFora = scoreFora;
+
         this.data = data;
         this.jogadoresCasa = jc;
         this.subsCasa = subsC;
         this.jogadoresFora = jf;
         this.subsFora = subsF;
+    }
+
+    public Jogo(Jogo j){
+        this.equipaCasa = j.getEquipaCasa();
+        this.equipaFora = j.getEquipaFora();
+        this.score = j.getScore();
+        this.data = j.getData();
+        //FALTA ACABAR ESTE METODO
     }
 
     public Equipa getEquipaCasa() {
@@ -108,6 +113,13 @@ public class Jogo {
         this.score = score;
     }
 
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
 
     public void goloCasa(){
         this.score.goloEqCasa();
@@ -150,5 +162,9 @@ public class Jogo {
         return new Jogo(campos[0], campos[1], Integer.parseInt(campos[2]), Integer.parseInt(campos[3]),
                 LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])),
                 jc, subsC, jf, subsF);
+    }
+
+    public Jogo clone(){
+        return new Jogo(this);
     }
 }

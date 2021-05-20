@@ -45,10 +45,10 @@ public class GestorEquipas {
     }
 
     public void adicionaEquipa(Equipa e){
-        equipas.put(e.generateID(),e.clone());
+        equipas.put(e.getNome(),e.clone());
     }
 
     public void removeEquipa(Equipa e){
-        equipas.remove(e.generateID(),e);
+        equipas.remove(e.getNome(),e);
     }
 }
