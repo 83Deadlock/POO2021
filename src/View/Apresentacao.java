@@ -1,5 +1,7 @@
 package View;
 
+import java.util.Map;
+
 public class Apresentacao {
 
     private final Output out;
@@ -26,5 +28,19 @@ public class Apresentacao {
      */
     public void printMessage(String message) {
         out.printMessage(message);
+    }
+
+    public void mainMenu() {
+        System.out.println("1. Novo jogo");
+        System.out.println("2. Carregar jogo");
+        System.out.println("3. Sair");
+    }
+
+    public void imprimeEquipas(Map<Integer, Map.Entry<String, Integer>> menuEscolhas) {
+        for (int i : menuEscolhas.keySet()) {
+            Map.Entry<String, Integer> stringIntegerEntry = menuEscolhas.get(i);
+            String line = i + ". " + stringIntegerEntry.getKey() + ", " + stringIntegerEntry.getValue();
+            System.out.println(line);
+        }
     }
 }

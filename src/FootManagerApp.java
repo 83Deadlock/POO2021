@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class FootManagerApp implements Serializable{
     public static void main(String[] args) {
         GestFootManager gfm = new GestFootManager();
-        Interpretador i = new Interpretador();
+        Interpretador i;
         Apresentacao a = new Apresentacao();
         Parser parser = new Parser();
 
@@ -21,12 +21,13 @@ public class FootManagerApp implements Serializable{
         }
 
         try{
-            i.interpretador(gfm, a);
+            i = new Interpretador(a, gfm);
+            i.interpretador();
         } catch (Exception e){
             e.printStackTrace();
         }
 
         System.out.println(gfm.getEquipas().get("Mahler Athletic").getJogadores().get(36).toString());
-
+        System.out.println(gfm.getEquipas().get("Mahler Athletic").getJogadores().keySet());
     }
 }

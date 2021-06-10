@@ -4,15 +4,13 @@ import Model.Equipa;
 import Model.Jogo;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GestFootManager {
     private Map<String,Equipa> equipas;
     private Map<LocalDate, List<Jogo>> jogos;
+    private String minhaEquipa;
 
     public GestFootManager(){
         this.equipas = new HashMap<>();
@@ -55,4 +53,16 @@ public class GestFootManager {
         jogos.get(j.getData()).add(j.clone());
     }
 
+    public void setMinhaEquipa(String minhaEquipa) {
+        this.minhaEquipa = minhaEquipa;
+    }
+
+    public Map<String, Integer> getNomesEquipas() {
+        Map<String, Integer> equipaToOverall = new HashMap<>();
+        Set<String> todasEquipas = this.equipas.keySet();
+        for (String eq : todasEquipas) {
+            equipaToOverall.put(eq, this.equipas.get(eq).getOverall());
+        }
+        return equipaToOverall;
+    }
 }

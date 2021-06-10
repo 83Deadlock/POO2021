@@ -13,7 +13,7 @@ public class GuardarCarregarEstado {
      * @param gfm       GestFootManager
      * @return          0 se guardou sem erros
      */
-    public int guardaDados(String fileName, GestFootManager gfm) {
+    public static int guardaDados(String fileName, GestFootManager gfm) {
         try {
             FileOutputStream file = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(file);
@@ -39,7 +39,7 @@ public class GuardarCarregarEstado {
      * @throws IOException              controlo erros
      * @throws ClassNotFoundException   controlo erros
      */
-    public GestFootManager carregaDados(String fileName) throws IOException, ClassNotFoundException {
+    public static GestFootManager carregaDados(String fileName) throws IOException, ClassNotFoundException {
         FileInputStream file = new FileInputStream(fileName);
         ObjectInputStream ois = new ObjectInputStream(file);
         GestFootManager gfm = (GestFootManager) ois.readObject();
