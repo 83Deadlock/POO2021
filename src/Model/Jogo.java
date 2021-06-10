@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Jogo {
-    private String equipaCasa;
-    private String equipaFora;
+    private Equipa equipaCasa;
+    private Equipa equipaFora;
     private int scoreCasa;
     private int scoreFora;
     private LocalDate data;
@@ -14,19 +14,8 @@ public class Jogo {
     private List<Integer> jogadoresFora;
     private Map<Integer,Integer> subsFora;
 
-    public Jogo(){
-        this.equipaCasa = "";
-        this.equipaFora = "";
-        this.scoreCasa = 0;
-        this.scoreFora = 0;
-        this.data = LocalDate.now();
-        this.jogadoresCasa = new ArrayList<>();
-        this.subsCasa = new HashMap<>();
-        this.jogadoresFora = new ArrayList<>();
-        this.subsFora = new HashMap<>();
-    }
 
-    public Jogo(String equipaCasa, String equipaFora, int scoreCasa, int scoreFora, LocalDate data, List<Integer> jc, Map<Integer,Integer> subsC, List<Integer> jf, Map<Integer,Integer> subsF) {
+    public Jogo(Equipa equipaCasa, Equipa equipaFora, int scoreCasa, int scoreFora, LocalDate data, List<Integer> jc, Map<Integer,Integer> subsC, List<Integer> jf, Map<Integer,Integer> subsF) {
         this.equipaCasa = equipaCasa;
         this.equipaFora = equipaFora;
         this.scoreCasa = scoreCasa;
@@ -50,20 +39,20 @@ public class Jogo {
         this.subsFora = j.getSubsFora();
     }
 
-    public String getEquipaCasa() {
-        return equipaCasa;
+    public Equipa getEquipaCasa() {
+        return this.equipaCasa.clone();
     }
 
-    public void setEquipaCasa(String equipaCasa) {
-        this.equipaCasa = equipaCasa;
+    public void setEquipaCasa(Equipa equipaCasa) {
+        this.equipaCasa = equipaCasa.clone();
     }
 
-    public String getEquipaFora() {
-        return equipaFora;
+    public Equipa getEquipaFora() {
+        return this.equipaFora.clone();
     }
 
-    public void setEquipaFora(String equipaFora) {
-        this.equipaFora = equipaFora;
+    public void setEquipaFora(Equipa equipaFora) {
+        this.equipaFora = equipaFora.clone();
     }
 
     public int getScoreCasa() {
@@ -126,8 +115,8 @@ public class Jogo {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Data = " + this.data.toString() + "\n");
-        sb.append(this.equipaCasa + " " + scoreCasa + "-");
-        sb.append(this.scoreFora + " " + this.equipaFora + "\n");
+        sb.append(this.equipaCasa.getNome() + " " + scoreCasa + "-");
+        sb.append(this.scoreFora + " " + this.equipaFora.getNome() + "\n");
         sb.append("Titulares Casa = " + this.listTitulares(this.jogadoresCasa) + "\n");
         sb.append("Substituições Casa = " + this.listSubs(this.subsCasa) + "\n");
         sb.append("Titulares Fora = " + this.listTitulares(this.jogadoresFora) + "\n");
@@ -152,37 +141,6 @@ public class Jogo {
     public void startGame() throws InterruptedException {
         sj.start();
     }*/
-
-    public static Jogo fromLine(String input){
-        String[] campos = input.split(",");
-        String[] data = campos[4].split("-");
-        List<Integer> jc = new ArrayList<>();
-        List<Integer> jf = new ArrayList<>();
-        Map<Integer, Integer> subsC = new HashMap<>();
-        Map<Integer, Integer> subsF = new HashMap<>();
-        for (int i = 5; i < 16; i++){
-            jc.add(Integer.parseInt(campos[i]));
-        }
-        for (int i = 16; i < 19; i++){
-            String[] sub = campos[i].split("->");
-            if(jc.contains(Integer.parseInt(sub[0]))){
-                subsC.put(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]));
-            }
-        }
-        for (int i = 19; i < 30; i++){
-            jf.add(Integer.parseInt(campos[i]));
-        }
-        for (int i = 30; i < 33; i++){
-            String[] sub = campos[i].split("->");
-            if(jf.contains(Integer.parseInt(sub[0]))){
-                subsF.put(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]));
-            }
-        }
-
-        return new Jogo(campos[0], campos[1], Integer.parseInt(campos[2]), Integer.parseInt(campos[3]),
-                LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])),
-                jc, subsC, jf, subsF);
-    }
 
     public String listTitulares(List<Integer> jogadores){
         StringBuilder sb = new StringBuilder();

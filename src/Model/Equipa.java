@@ -8,7 +8,7 @@ public class Equipa {
     private Map<Integer,Jogador> jogadores;
     private int overall;
     private Constituicao constituicao;
-    private final String[] constituicoes = {"QTT", "CTD", "TQT", "QQD", "QCU"};
+    //private final String[] constituicoes = {"QTT", "CTD", "TQT", "QQD", "QCU"};
 
     public Equipa(String nome, int anoDaFundacao, Constituicao constituicao) {
         this.nome = nome;
@@ -32,8 +32,9 @@ public class Equipa {
         this.jogadores = new HashMap<>();
         this.overall = 0;
         Random r = new Random();
-        int index = r.nextInt(constituicoes.length);
-        this.constituicao = new Constituicao(constituicoes[index]);
+        //int index = r.nextInt(constituicoes.length);
+        //int tatic = (Math.random() <= 0.5) ? 1 : 2;
+        //this.constituicao = new Constituicao(tatic,jogadores);
         this.calcOverall();
     }
 
@@ -71,6 +72,10 @@ public class Equipa {
 
     public int getOverall() {
         return overall;
+    }
+
+    public void setOverall(int overall){
+        this.overall = overall;
     }
 
     public Constituicao getConstituicao() {
@@ -113,6 +118,14 @@ public class Equipa {
                 '}';
     }
 
+    public String geraPlantel(){
+        StringBuilder sb = new StringBuilder();
+        for(int i: jogadores.keySet()){
+            sb.append(i + " - " + jogadores.get(i).basicInfoString()+"\n");
+        }
+        return sb.toString();
+    }
+
     public Equipa clone(){
         return new Equipa(this);
     }
@@ -138,5 +151,10 @@ public class Equipa {
             }
         }
         return ret;
+    }
+
+    public void fazConstituicao(){
+        int tatic = (Math.random() <= 0.5) ? 1 : 2;
+        this.constituicao = new Constituicao(tatic,jogadores);
     }
 }

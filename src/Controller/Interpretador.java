@@ -35,32 +35,34 @@ public class Interpretador {
         if (smenu == -1) return;
         if (smenu == 1) createNewGame();
 
-        mainMenu();
+
         int choice = -1;
 
         while (choice != 4) {
+            mainMenu();
             System.out.println("Escolha: ");
             choice = scanner.nextInt();
             scanner.nextLine();
 
             if (choice == 1) {
                 // Gestao de equipa
-
+                menuGestEquipa();
             } else if (choice == 2) {
                 // Realizar jogo
             } else if (choice == 3) {
                 // Save Game
-                GuardarCarregarEstado.guardaDados("tmp0", gfm);
+                System.out.println("Introduza o nome do save:");
+                String file_name = scanner.nextLine();
+                GuardarCarregarEstado.guardaDados(file_name, gfm);
+                System.out.println("Jogo guardado");
             } else if (choice == 4) {
                 System.out.println("Adeus");
             } else {
-                System.out.println("Invalido");
+                System.out.println("Opção inválida.");
             }
 
         }
     }
-
-
 
     private void createNewGame() {
         Map<String, Integer> nomesEquipas = this.gfm.getNomesEquipas();
@@ -83,14 +85,8 @@ public class Interpretador {
         gfm.setMinhaEquipa(eq);
     }
 
-    // private List<String> juntaOverall(Map<String, Integer> nomesEquipas) {
-    //     List<String> eqs = new ArrayList<>();
-    //     for (Map.Entry<String,Integer> entry : nomesEquipas.entrySet()) {
-    //         eq
-    //     }
-    // }
-
     private int startMenu() {
+        apresentacao.mainMenu();
         int choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
@@ -119,5 +115,44 @@ public class Interpretador {
         System.out.println("2. Realizar jogo");
         System.out.println("3. Guardar jogo");
         System.out.println("4. Sair");
+    }
+
+    private void menuGestEquipa(){
+        int choice = -1;
+        boolean flag = false;
+        while(!flag){
+            apresentacao.menuGestEquipa();
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            switch(choice){
+                case 1: menuEditarConstituicao(); //TODO
+                        break;
+                case 2: menuTransferencias(); //TODO
+                        break;
+                case 3: verConstituiçãoAtual(); //DONE
+                        break;
+                case 4: verJogosRealizados(); //DONE
+                        break;
+                case 5: flag = true;
+                        break;
+            }
+        }
+
+    }
+
+    private void verJogosRealizados() {
+        apresentacao.printMessage(gfm.getJogosWith(gfm.getMinhaEquipa()));
+    }
+
+    private void verConstituiçãoAtual() {
+        apresentacao.printMessage(gfm.printConstituicao(gfm.getMinhaEquipa()));
+    }
+
+    private void menuTransferencias() {
+        //TODO
+    }
+
+    private void menuEditarConstituicao() {
+        //TODO
     }
 }

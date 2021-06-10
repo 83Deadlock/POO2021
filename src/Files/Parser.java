@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Parser {
 
@@ -28,6 +31,8 @@ public class Parser {
                 case "Equipa":
                     Equipa e = Equipa.fromLine(linhaPartida[1]);
                     if(ultima != null){
+                        ultima.calcOverall();
+                        ultima.fazConstituicao();
                         gfm.adicionaEquipa(ultima);
                     }
                     ultima = e;
@@ -75,7 +80,12 @@ public class Parser {
                     break;
 
                 case "Jogo":
-                    Jogo jo = Jogo.fromLine(linhaPartida[1]);
+                    if(ultima != null){
+                        ultima.calcOverall();
+                        gfm.adicionaEquipa(ultima);
+                    }
+                    Jogo jo = fromLineJogo(linhaPartida[1],gfm);
+
                     gfm.adicionaJogo(jo);
                     break;
                 default:
@@ -94,5 +104,36 @@ public class Parser {
             lines = new ArrayList<>();
         }
         return lines;
+    }
+
+    public Jogo fromLineJogo(String input, GestFootManager gfm){
+        String[] campos = input.split(",");
+        String[] data = campos[4].split("-");
+        List<Integer> jc = new ArrayList<>();
+        List<Integer> jf = new ArrayList<>();
+        Map<Integer, Integer> subsC = new HashMap<>();
+        Map<Integer, Integer> subsF = new HashMap<>();
+        for (int i = 5; i < 16; i++){
+            jc.add(Integer.parseInt(campos[i]));
+        }
+        for (int i = 16; i < 19; i++){
+            String[] sub = campos[i].split("->");
+            if(jc.contains(Integer.parseInt(sub[0]))){
+                subsC.put(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]));
+            }
+        }
+        for (int i = 19; i < 30; i++){
+            jf.add(Integer.parseInt(campos[i]));
+        }
+        for (int i = 30; i < 33; i++){
+            String[] sub = campos[i].split("->");
+            if(jf.contains(Integer.parseInt(sub[0]))){
+                subsF.put(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]));
+            }
+        }
+
+        return new Jogo(gfm.getEquipas().get(campos[0]), gfm.getEquipas().get(campos[1]), Integer.parseInt(campos[2]), Integer.parseInt(campos[3]),
+                LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])),
+                jc, subsC, jf, subsF);
     }
 }

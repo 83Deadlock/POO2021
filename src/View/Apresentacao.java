@@ -43,4 +43,12 @@ public class Apresentacao {
             System.out.println(line);
         }
     }
+
+    public void menuGestEquipa() {
+        System.out.println("1. Editar constituição da equipa");
+        System.out.println("2. Transferências");
+        System.out.println("3. Ver constituição atual");
+        System.out.println("4. Ver jogos realizados");
+        System.out.println("5. Voltar");
+    }
 }

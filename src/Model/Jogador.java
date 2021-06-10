@@ -153,4 +153,9 @@ public abstract class Jogador {
         this.historico.add(nomeEquipa);
     }
 
+    public String basicInfoString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getNome() + " -> " + this.getOverall());
+        return sb.toString();
+    }
 }

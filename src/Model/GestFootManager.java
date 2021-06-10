@@ -57,6 +57,10 @@ public class GestFootManager {
         this.minhaEquipa = minhaEquipa;
     }
 
+    public String getMinhaEquipa(){
+        return this.minhaEquipa;
+    }
+
     public Map<String, Integer> getNomesEquipas() {
         Map<String, Integer> equipaToOverall = new HashMap<>();
         Set<String> todasEquipas = this.equipas.keySet();
@@ -64,5 +68,38 @@ public class GestFootManager {
             equipaToOverall.put(eq, this.equipas.get(eq).getOverall());
         }
         return equipaToOverall;
+    }
+
+    public String getJogosWith(String team){
+        Map<LocalDate,List<Jogo>> jogosTeam = new HashMap<>();
+        for(LocalDate d: jogos.keySet()){
+            jogosTeam.put(d,filterJogosEquipa(jogos.get(d),team));
+        }
+        StringBuilder sb = new StringBuilder();
+        for(LocalDate d: jogosTeam.keySet()){
+            for(Jogo j: jogosTeam.get(d)){
+                sb.append(j.toString() + "\n");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private List<Jogo> filterJogosEquipa(List<Jogo> jogos, String team) {
+        List<Jogo> res = new ArrayList<>();
+        for(Jogo j: jogos){
+            if(j.getEquipaCasa().getNome().equals(team) || j.getEquipaFora().getNome().equals(team)){
+                res.add(j.clone());
+            }
+        }
+        return res;
+    }
+
+    public String printConstituicao(String minhaEquipa) {
+        return this.equipas.get(minhaEquipa).getConstituicao().toStringPrintable();
+        //for(int i : equipas.get(minhaEquipa).getJogadores().keySet()){
+        //    System.out.println(i + " -> "+equipas.get(minhaEquipa).getJogadores().get(i).getClass().getName());
+        //}
+        //return "";
     }
 }
