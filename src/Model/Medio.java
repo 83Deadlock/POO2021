@@ -1,6 +1,8 @@
 package Model;
 
-public class Medio extends Jogador {
+import java.io.Serializable;
+
+public class Medio extends Jogador implements Serializable {
     private int recuperacao;
 
     public Medio(String nome,

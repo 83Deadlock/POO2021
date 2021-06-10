@@ -1,6 +1,8 @@
 package Model;
 
-public class Defesa extends Jogador {
+import java.io.Serializable;
+
+public class Defesa extends Jogador implements Serializable {
 
     public Defesa(String nome,
                   int numeroCamisola,

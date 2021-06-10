@@ -3,11 +3,12 @@ package Model;
 import Model.Equipa;
 import Model.Jogo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GestFootManager {
+public class GestFootManager implements Serializable {
     private Map<String,Equipa> equipas;
     private Map<LocalDate, List<Jogo>> jogos;
     private String minhaEquipa;
@@ -17,8 +18,13 @@ public class GestFootManager {
         this.jogos = new HashMap<>();
     }
 
+    public Map<String,Equipa> getEquipasCloned(){
+        return this.equipas.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, par -> par.getValue().clone()));
+    }
+
+    // Não cloneia as Equipas, usar com cuidado
     public Map<String,Equipa> getEquipas(){
-        return this.equipas.entrySet().stream().collect(Collectors.toMap(par -> par.getKey(), par -> par.getValue().clone()));
+        return this.equipas.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public void setEquipas(Map<String, Equipa> equipas) {

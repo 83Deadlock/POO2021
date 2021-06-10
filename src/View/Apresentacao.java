@@ -51,4 +51,10 @@ public class Apresentacao {
         System.out.println("4. Ver jogos realizados");
         System.out.println("5. Voltar");
     }
+
+    public void printChoiceMenu(Map<Integer, String> menu) {
+        for (Map.Entry<Integer, String> entry : menu.entrySet()) {
+            System.out.println(entry.getKey() + ". " + entry.getValue());
+        }
+    }
 }

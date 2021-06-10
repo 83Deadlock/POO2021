@@ -132,7 +132,7 @@ public class Parser {
             }
         }
 
-        return new Jogo(gfm.getEquipas().get(campos[0]), gfm.getEquipas().get(campos[1]), Integer.parseInt(campos[2]), Integer.parseInt(campos[3]),
+        return new Jogo(gfm.getEquipasCloned().get(campos[0]), gfm.getEquipasCloned().get(campos[1]), Integer.parseInt(campos[2]), Integer.parseInt(campos[3]),
                 LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])),
                 jc, subsC, jf, subsF);
     }

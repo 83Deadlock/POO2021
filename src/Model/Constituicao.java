@@ -1,8 +1,9 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Constituicao {
+public class Constituicao implements Serializable {
 
     private enum Tatica { QTT, QQD}
     private GuardaRedes guardaRedes;

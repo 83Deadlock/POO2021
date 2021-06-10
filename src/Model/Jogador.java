@@ -1,10 +1,11 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public abstract class Jogador {
+public abstract class Jogador implements Serializable {
     private String nome;
 
     private int overall;

@@ -1,6 +1,8 @@
 package Model;
 
-public class GuardaRedes extends Jogador {
+import java.io.Serializable;
+
+public class GuardaRedes extends Jogador implements Serializable {
     private int elasticidade;
 
     public GuardaRedes(String nome,

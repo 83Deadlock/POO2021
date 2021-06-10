@@ -1,9 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Jogo {
+public class Jogo implements Serializable {
     private Equipa equipaCasa;
     private Equipa equipaFora;
     private int scoreCasa;

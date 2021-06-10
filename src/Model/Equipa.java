@@ -1,8 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class Equipa {
+public class Equipa implements Serializable {
     private String nome;
     private int anoDaFundacao;
     private Map<Integer,Jogador> jogadores;
@@ -141,6 +143,15 @@ public class Equipa {
         this.jogadores.remove(numero);
     }
 
+    public void removeJogador(String nome) {
+        Set<Map.Entry<Integer, Jogador>> entries = this.getJogadores().entrySet();
+        for (Map.Entry<Integer, Jogador> entry : entries) {
+            if (entry.getValue().getNome().equals(nome)) {
+                this.removeJogador(entry.getKey());
+            }
+        }
+    }
+
     public int findProxNumeroDisponivel(int numeroAtual){
         int ret = numeroAtual;
         while(this.jogadores.keySet().contains(ret)){
@@ -156,5 +167,11 @@ public class Equipa {
     public void fazConstituicao(){
         int tatic = (Math.random() <= 0.5) ? 1 : 2;
         this.constituicao = new Constituicao(tatic,jogadores);
+    }
+
+    // Assumes:
+    // nome existe como value em jogadores
+    public Jogador getJogadorByName(String nome) {
+        return this.jogadores.values().stream().filter(a -> a.getNome().equals(nome)).collect(Collectors.toList()).get(0);
     }
 }

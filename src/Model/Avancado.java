@@ -1,6 +1,8 @@
 package Model;
 
-public class Avancado extends Jogador {
+import java.io.Serializable;
+
+public class Avancado extends Jogador implements Serializable {
 
     public Avancado(String nome,
                     int numeroCamisola,

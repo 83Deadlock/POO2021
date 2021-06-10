@@ -1,6 +1,8 @@
 package Model;
 
-public class Lateral extends Jogador {
+import java.io.Serializable;
+
+public class Lateral extends Jogador implements Serializable {
     private int cruzamentos;
 
     public Lateral(String nome,
