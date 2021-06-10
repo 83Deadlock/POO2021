@@ -26,5 +26,7 @@ public class FootManagerApp implements Serializable{
             e.printStackTrace();
         }
 
+        System.out.println(gfm.getEquipas().get("Mahler Athletic").getJogadores().get(36).toString());
+
     }
 }

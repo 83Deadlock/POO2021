@@ -15,7 +15,7 @@ public class Parser {
         List<String> linhas = lerFicheiro("input_files/logs.txt");
 
 
-        //Map<Integer, Model.Jogador> jogadores = new HashMap<>(); //numero, jogador
+        //Map<Integer, Jogador> jogadores = new HashMap<>(); //numero, jogador
 
         Equipa ultima = null;
         Jogador j = null;
@@ -25,7 +25,7 @@ public class Parser {
         for (String linha : linhas) {
             linhaPartida = linha.split(":", 2);
             switch (linhaPartida[0]) {
-                case "Model.Equipa":
+                case "Equipa":
                     Equipa e = Equipa.fromLine(linhaPartida[1]);
                     if(ultima != null){
                         gfm.adicionaEquipa(ultima);
@@ -42,7 +42,7 @@ public class Parser {
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Model.Defesa":
+                case "Defesa":
                     j = Defesa.fromLine(linhaPartida[1],ultima.getNome());
                     //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
@@ -50,7 +50,7 @@ public class Parser {
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Model.Medio":
+                case "Medio":
                     j = Medio.fromLine(linhaPartida[1],ultima.getNome());
                     //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
@@ -58,7 +58,7 @@ public class Parser {
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Model.Lateral":
+                case "Lateral":
                     j = Lateral.fromLine(linhaPartida[1],ultima.getNome());
                     //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
@@ -66,7 +66,7 @@ public class Parser {
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Model.Avancado":
+                case "Avancado":
                     j = Avancado.fromLine(linhaPartida[1],ultima.getNome());
                     //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
@@ -74,7 +74,7 @@ public class Parser {
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Model.Jogo":
+                case "Jogo":
                     Jogo jo = Jogo.fromLine(linhaPartida[1]);
                     gfm.adicionaJogo(jo);
                     break;
