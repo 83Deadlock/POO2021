@@ -2,6 +2,7 @@ package Model;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Constituicao implements Serializable {
 
@@ -20,30 +21,74 @@ public class Constituicao implements Serializable {
             case 1:
                 this.tatica = Tatica.QQD;
                 setGuardaRedes(getMelhorGuardaRedes(jogadores));
+                jogadores.remove(guardaRedes.getNumeroCamisola());
+
                 this.defesas = new Defesa[2];
                 setDefesas(getMelhoresDefesas(jogadores,2));
+                for(int i = 0; i < defesas.length; i++){
+                    jogadores.remove(defesas[i].getNumeroCamisola());
+                }
+
                 this.laterais = new Lateral[2];
-                setLaterais(getMelhoreslaterais(jogadores,2,new Lateral[0]));
+                setLaterais(getMelhoreslaterais(jogadores,2));
+                for(int i = 0; i < laterais.length; i++){
+                    jogadores.remove(laterais[i].getNumeroCamisola());
+                }
+
                 this.medios = new Medio[2];
                 setMedios(getMelhoresMedios(jogadores,2));
+                for(int i = 0; i < medios.length; i++){
+                    jogadores.remove(medios[i].getNumeroCamisola());
+                }
+
                 this.extremos = new Lateral[2];
-                setExtremos(getMelhoreslaterais(jogadores,2,this.laterais));
+                setExtremos(getMelhoreslaterais(jogadores,2));
+                for(int i = 0; i < extremos.length; i++){
+                    jogadores.remove(extremos[i].getNumeroCamisola());
+                }
+
                 this.avançados = new Avancado[2];
                 setAvançados(getMelhoresAvancados(jogadores,2));
+                for(int i = 0; i < avançados.length; i++){
+                    jogadores.remove(avançados[i].getNumeroCamisola());
+                }
+
                 break;
             case 2:
                 this.tatica = Tatica.QTT;
                 setGuardaRedes(getMelhorGuardaRedes(jogadores));
+                jogadores.remove(guardaRedes.getNumeroCamisola());
+
                 this.defesas = new Defesa[2];
                 setDefesas(getMelhoresDefesas(jogadores,2));
+                for(int i = 0; i < defesas.length; i++){
+                    jogadores.remove(defesas[i].getNumeroCamisola());
+                }
+
                 this.laterais = new Lateral[2];
-                setLaterais(getMelhoreslaterais(jogadores,2,new Lateral[0]));
+                setLaterais(getMelhoreslaterais(jogadores,2));
+                for(int i = 0; i < laterais.length; i++){
+                    jogadores.remove(laterais[i].getNumeroCamisola());
+                }
+
                 this.medios = new Medio[3];
                 setMedios(getMelhoresMedios(jogadores,3));
+                for(int i = 0; i < medios.length; i++){
+                    jogadores.remove(medios[i].getNumeroCamisola());
+                }
+
                 this.extremos = new Lateral[2];
-                setExtremos(getMelhoreslaterais(jogadores,2,this.laterais));
+                setExtremos(getMelhoreslaterais(jogadores,2));
+                for(int i = 0; i < extremos.length; i++){
+                    jogadores.remove(extremos[i].getNumeroCamisola());
+                }
+
                 this.avançados = new Avancado[1];
                 setAvançados(getMelhoresAvancados(jogadores,1));
+                for(int i = 0; i < avançados.length; i++){
+                    jogadores.remove(avançados[i].getNumeroCamisola());
+                }
+
                 break;
         }
     }
@@ -62,12 +107,18 @@ public class Constituicao implements Serializable {
                 '}';
     }
 
+    public GuardaRedes getGuardaRedes(){
+        return this.guardaRedes.clone();
+    }
+
     public void setGuardaRedes(GuardaRedes j){
         this.guardaRedes = j;
     }
 
     public Defesa[] getDefesas() {
-        return defesas;
+        Defesa ret[] = new Defesa[this.defesas.length];
+        for(int i = 0; i < this.defesas.length; i++) ret[i] = this.defesas[i].clone();
+        return ret;
     }
 
     public void setDefesas(Defesa[] defesas) {
@@ -75,7 +126,9 @@ public class Constituicao implements Serializable {
     }
 
     public Medio[] getMedios() {
-        return medios;
+        Medio ret[] = new Medio[this.medios.length];
+        for(int i = 0; i < this.medios.length; i++) ret[i] = this.medios[i].clone();
+        return ret;
     }
 
     public void setMedios(Medio[] medios) {
@@ -83,7 +136,9 @@ public class Constituicao implements Serializable {
     }
 
     public Avancado[] getAvançados() {
-        return avançados;
+        Avancado ret[] = new Avancado[this.avançados.length];
+        for(int i = 0; i < this.avançados.length; i++) ret[i] = this.avançados[i].clone();
+        return ret;
     }
 
     public void setAvançados(Avancado[] avançados) {
@@ -91,7 +146,9 @@ public class Constituicao implements Serializable {
     }
 
     public Lateral[] getLaterais() {
-        return laterais;
+        Lateral ret[] = new Lateral[this.laterais.length];
+        for(int i = 0; i < this.laterais.length; i++) ret[i] = this.laterais[i].clone();
+        return ret;
     }
 
     public void setLaterais(Lateral[] laterais) {
@@ -99,7 +156,9 @@ public class Constituicao implements Serializable {
     }
 
     public Lateral[] getExtremos() {
-        return extremos;
+        Lateral ret[] = new Lateral[this.extremos.length];
+        for(int i = 0; i < this.extremos.length; i++) ret[i] = this.extremos[i].clone();
+        return ret;
     }
 
     public void setExtremos(Lateral[] extremos) {
@@ -193,6 +252,17 @@ public class Constituicao implements Serializable {
         }
         aux.sort(new JogadorComparatorOverall());
         Defesa defs[] = new Defesa[n];
+
+        if(aux.size() < n){
+            List<Jogador> newAux = jogadores.values().stream().collect(Collectors.toList());
+            newAux.sort(new JogadorComparatorOverall());
+            int indexLast = newAux.size() - 1;
+            while(aux.size() < n){
+                aux.add(new Defesa(newAux.get(indexLast)));
+                newAux.remove(indexLast--);
+            }
+        }
+
         for(int i = 0; i < n; i++){
             defs[i] = aux.get(i);
         }
@@ -209,6 +279,17 @@ public class Constituicao implements Serializable {
         }
         aux.sort(new JogadorComparatorOverall());
         Medio meds[] = new Medio[n];
+
+        if(aux.size() < n){
+            List<Jogador> newAux = jogadores.values().stream().collect(Collectors.toList());
+            newAux.sort(new JogadorComparatorOverall());
+            int indexLast = newAux.size() - 1;
+            while(aux.size() < n){
+                aux.add(new Medio(newAux.get(indexLast)));
+                newAux.remove(indexLast--);
+            }
+        }
+
         for(int i = 0; i < n; i++){
             meds[i] = aux.get(i);
         }
@@ -225,13 +306,24 @@ public class Constituicao implements Serializable {
         }
         aux.sort(new JogadorComparatorOverall());
         Avancado meds[] = new Avancado[n];
+
+        if(aux.size() < n){
+            List<Jogador> newAux = jogadores.values().stream().collect(Collectors.toList());
+            newAux.sort(new JogadorComparatorOverall());
+            int indexLast = newAux.size() - 1;
+            while(aux.size() < n && newAux.size() > 0){
+                aux.add(new Avancado(newAux.get(indexLast)));
+                newAux.remove(indexLast--);
+            }
+        }
+
         for(int i = 0; i < n; i++){
             meds[i] = aux.get(i);
         }
         return meds;
     }
 
-    public Lateral[] getMelhoreslaterais(Map<Integer,Jogador> jogadores, int n, Lateral[] arg){
+    public Lateral[] getMelhoreslaterais(Map<Integer,Jogador> jogadores, int n){
         List<Lateral> aux = new ArrayList<>();
         for(Jogador j: jogadores.values()){
             if (j instanceof Model.Lateral){
@@ -239,16 +331,106 @@ public class Constituicao implements Serializable {
                 aux.add(d.clone());
             }
         }
-        for(int i = 0; i < arg.length; i++){
-            aux.remove(arg[i]);
-        }
 
         aux.sort(new JogadorComparatorOverall());
         Lateral meds[] = new Lateral[n];
+
+        if(aux.size() < n){
+           List<Jogador> newAux = jogadores.values().stream().collect(Collectors.toList());
+           newAux.sort(new JogadorComparatorOverall());
+           int indexLast = newAux.size() - 1;
+           while(aux.size() < n){
+               aux.add(new Lateral(newAux.get(indexLast)));
+               newAux.remove(indexLast--);
+           }
+        }
+
         for(int i = 0; i < n; i++){
             meds[i] = aux.get(i);
         }
         return meds;
     }
 
+    public void trocaGuardaRedes(GuardaRedes entra) {
+        setGuardaRedes(entra);
+    }
+
+    public void trocaDefesa(Defesa sai, Defesa entra) {
+        int saiIndex = -1;
+        for(int i = 0; i < defesas.length && saiIndex == -1; i++){
+            if(defesas[i].getNumeroCamisola() == sai.getNumeroCamisola()){
+                saiIndex = i;
+            }
+        }
+        defesas[saiIndex] = entra.clone();
+
+    }
+
+    public void trocaLateral(Lateral sai, Lateral entra) {
+        boolean entraExtremo = false;
+        int saiIndex = -1;
+        int entraIndex = -1;
+        for(int i = 0; i < laterais.length && saiIndex == -1; i++){
+            if(laterais[i].getNumeroCamisola() == sai.getNumeroCamisola()){
+                saiIndex = i;
+            }
+        }
+        for(int i = 0; i < extremos.length && !entraExtremo; i++){
+            if(extremos[i].getNumeroCamisola() == entra.getNumeroCamisola()){
+                entraIndex = i;
+                entraExtremo = true;
+            }
+        }
+        if(entraExtremo){
+            extremos[entraIndex] = sai.clone();
+        }
+        laterais[saiIndex] = entra.clone();
+
+    }
+
+    public void trocaExtremo(Lateral sai, Lateral entra){
+        boolean entraLateral = false;
+        int saiIndex = -1;
+        int entraIndex = -1;
+        for(int i = 0; i < extremos.length && saiIndex == -1; i++){
+            if(extremos[i].getNumeroCamisola() == sai.getNumeroCamisola()){
+                saiIndex = i;
+            }
+        }
+        for(int i = 0; i < laterais.length && !entraLateral; i++){
+            if(laterais[i].getNumeroCamisola() == entra.getNumeroCamisola()){
+                entraIndex = i;
+                entraLateral = true;
+            }
+        }
+        if(entraLateral){
+            laterais[entraIndex] = sai.clone();
+        }
+        extremos[saiIndex] = entra.clone();
+    }
+
+    public void trocaMedio(Medio sai, Medio entra) {
+        int saiIndex = -1;
+        for(int i = 0; i < medios.length && saiIndex == -1; i++){
+            if(medios[i].getNumeroCamisola() == sai.getNumeroCamisola()){
+                saiIndex = i;
+            }
+        }
+        medios[saiIndex] = entra.clone();
+
+    }
+
+    public void trocaAvancado(Avancado sai, Avancado entra) {
+        int saiIndex = -1;
+        for(int i = 0; i < avançados.length && saiIndex == -1; i++){
+            if(avançados[i].getNumeroCamisola() == sai.getNumeroCamisola()){
+                saiIndex = i;
+            }
+        }
+        avançados[saiIndex] = entra.clone();
+
+    }
+
+
 }
+

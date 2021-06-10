@@ -5,6 +5,13 @@ import java.io.Serializable;
 public class Medio extends Jogador implements Serializable {
     private int recuperacao;
 
+    public Medio(Jogador j){
+        super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
+                j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
+        double r = j.getDestreza() * 0.6;
+        this.recuperacao = (int) r;
+    }
+
     public Medio(String nome,
                  int numeroCamisola,
                  String equipaAtual,

@@ -1,9 +1,7 @@
 package Controller;
 
 import Files.GuardarCarregarEstado;
-import Model.Equipa;
-import Model.GestFootManager;
-import Model.Jogador;
+import Model.*;
 import View.Apresentacao;
 
 import java.io.IOException;
@@ -22,7 +20,6 @@ public class Interpretador {
         gfm = gf;
         scanner = new Scanner(System.in);
     }
-
 
     /**
      * Controlador geral do programa
@@ -132,13 +129,13 @@ public class Interpretador {
             choice = scanner.nextInt();
             scanner.nextLine();
             switch(choice){
-                case 1: menuEditarConstituicao(); //TODO
+                case 1: menuEditarConstituicao();
                         break;
-                case 2: menuTransferencias(); //TODO
+                case 2: menuTransferencias();
                         break;
-                case 3: verConstituiçãoAtual(); //DONE
+                case 3: verConstituiçãoAtual();
                         break;
-                case 4: verJogosRealizados(); //DONE
+                case 4: verJogosRealizados();
                         break;
                 case 5: flag = true;
                         break;
@@ -245,7 +242,401 @@ public class Interpretador {
     }
 
     private void menuEditarConstituicao() {
-        //TODO
+        int choice = -1;
+        boolean flag = false;
+        while(!flag){
+            System.out.println("1. Ver constituição atual");
+            System.out.println("2. Alterar Constituição");
+            System.out.println("3. Sair");
+            System.out.print("Escolha: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            switch(choice){
+                case 1: verConstituiçãoAtual();
+                        break;
+                case 2: alterarConstituicao();
+                        break;
+                case 3: flag = true;
+                        break;
+            }
+        }
+    }
+
+    private void alterarConstituicao() {
+        int tatica = -1;
+        boolean flag = false;
+        while(!flag){
+            System.out.println("Escolha a sua tática");
+            System.out.println("1. 4-4-2");
+            System.out.println("2. 4-3-3");
+            tatica = scanner.nextInt();
+            scanner.nextLine();
+            if(tatica == 1 || tatica == 2){
+                flag = true;
+            } else {
+                System.out.println("Opção Inválida");
+            }
+        }
+        this.gfm.getEquipas().get(this.gfm.getMinhaEquipa()).setConstituicao(tatica,gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getJogadores());
+        int decisao = -1;
+        while(decisao != 0 && decisao != 1){
+            System.out.println("A sua equipa foi alterada automaticamente! Deseja ver a sua constituição atual? (Sim (1)/Não (0))");
+            decisao = scanner.nextInt();
+            scanner.nextLine();
+            if(decisao != 0 && decisao != 1) System.out.println("Opção Inválida");
+        }
+        if(decisao == 1){
+            verConstituiçãoAtual();
+        }
+        decisao = -1;
+        while(decisao != 0 && decisao != 1){
+            System.out.println("Pretende alterar os jogadores? (Sim (1)/Não (0))");
+            decisao = scanner.nextInt();
+            scanner.nextLine();
+            if(decisao != 0 && decisao != 1) System.out.println("Opção Inválida");
+        }
+        if(decisao == 1){
+            System.out.println("-------------------Guarda-Redes-------------------");
+            alteraGuardaRedes();
+            System.out.println("---------------------Laterais---------------------");
+            alteraLaterais();
+            System.out.println("---------------------Defesas----------------------");
+            alteraDefesas();
+            System.out.println("----------------------Medios----------------------");
+            alteraMedios();
+            System.out.println("---------------------Extremos---------------------");
+            alteraExtremos();
+            System.out.println("---------------------Avançados--------------------");
+            alteraAvancados();
+        }
+    }
+
+    public void alteraGuardaRedes() {
+        boolean flag = false;
+        int choice = -1;
+        while(!flag){
+            GuardaRedes gr = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getGrTitular();
+            System.out.println("Titular\n\t" + gr.getNumeroCamisola() + " - " + gr.toStringBasic());
+
+            Map<Integer,Jogador> suplentesMap = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getGuardaRedes();
+            suplentesMap.remove(gr.getNumeroCamisola());
+            System.out.println("Suplentes -> \n" + suplentes(suplentesMap));
+
+            System.out.println("Que jogador pretende trocar? (0 para sair)");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            if(choice == 0){
+                flag = true;
+            } else if(gr.getNumeroCamisola() == choice){
+                flag = true;
+                int suplente = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    suplente = scanner.nextInt();
+                    scanner.nextLine();
+                    if(suplentesMap.containsKey(suplente)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(gr.getNumeroCamisola(),suplente,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else if (suplentesMap.containsKey(choice)){
+                flag = true;
+                gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(gr.getNumeroCamisola(),choice,0);
+            } else {
+                System.out.println("opção Inválida");
+            }
+        }
+    }
+
+    public void alteraDefesas(){
+        boolean flag = false;
+        int choice = -1;
+        while(!flag){
+            Defesa titulares[] = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getDefesasTitulares();
+            Map<Integer,Jogador> numerosTitulares = new HashMap<>();
+            for(int i = 0; i < titulares.length; i++){
+                numerosTitulares.put(titulares[i].getNumeroCamisola(),titulares[i]);
+            }
+            System.out.println("Titulares\n" + suplentes(numerosTitulares));
+            Map<Integer,Jogador> suplentesMap = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getDefesas();
+            for(Integer i: numerosTitulares.keySet()){
+                suplentesMap.remove(i);
+            }
+            System.out.println("Suplentes -> \n" + suplentes(suplentesMap));
+
+            System.out.println("Que jogador pretende trocar? (0 para sair)");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            if(choice == 0) {
+                flag = true;
+            } else if (numerosTitulares.containsKey(choice)){
+                int suplente = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    suplente = scanner.nextInt();
+                    scanner.nextLine();
+                    if(suplentesMap.containsKey(suplente)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(choice,suplente,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else if (suplentesMap.containsKey(choice)){
+                int titular = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    titular = scanner.nextInt();
+                    scanner.nextLine();
+                    if(numerosTitulares.containsKey(titular)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(titular,choice,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else {
+                System.out.println("opção Inválida");
+            }
+        }
+
+    }
+
+    public void alteraLaterais(){
+        boolean flag = false;
+        int choice = -1;
+        while(!flag){
+            Lateral titulares[] = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getLateraisTitulares();
+            Map<Integer,Jogador> numerosTitulares = new HashMap<>();
+            for(int i = 0; i < titulares.length; i++){
+                numerosTitulares.put(titulares[i].getNumeroCamisola(),titulares[i]);
+            }
+            System.out.println("Titulares\n" + suplentes(numerosTitulares));
+            Map<Integer,Jogador> suplentesMap = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getLaterais();
+            for(Integer i: numerosTitulares.keySet()){
+                suplentesMap.remove(i);
+            }
+            System.out.println("Suplentes -> \n" + suplentes(suplentesMap));
+
+            System.out.println("Que jogador pretende trocar? (0 para sair)");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            if(choice == 0) {
+                flag = true;
+            } else if (numerosTitulares.containsKey(choice)){
+                int suplente = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    suplente = scanner.nextInt();
+                    scanner.nextLine();
+                    if(suplentesMap.containsKey(suplente)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(choice,suplente,1);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else if (suplentesMap.containsKey(choice)){
+                int titular = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o titular a sair?");
+                    titular = scanner.nextInt();
+                    scanner.nextLine();
+                    if(numerosTitulares.containsKey(titular)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(titular,choice,1);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else {
+                System.out.println("opção Inválida");
+            }
+        }
+
+    }
+
+    public void alteraExtremos(){
+        boolean flag = false;
+        int choice = -1;
+        while(!flag){
+            Lateral titulares[] = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getExtremosTitulares();
+            Map<Integer,Jogador> numerosTitulares = new HashMap<>();
+            for(int i = 0; i < titulares.length; i++){
+                numerosTitulares.put(titulares[i].getNumeroCamisola(),titulares[i]);
+            }
+            System.out.println("Titulares\n" + suplentes(numerosTitulares));
+            Map<Integer,Jogador> suplentesMap = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getLaterais();
+            for(Integer i: numerosTitulares.keySet()){
+                suplentesMap.remove(i);
+            }
+            System.out.println("Suplentes -> \n" + suplentes(suplentesMap));
+
+            System.out.println("Que jogador pretende trocar? (0 para sair)");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            if(choice == 0) {
+                flag = true;
+            } else if (numerosTitulares.containsKey(choice)){
+                int suplente = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    suplente = scanner.nextInt();
+                    scanner.nextLine();
+                    if(suplentesMap.containsKey(suplente)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(choice,suplente,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else if (suplentesMap.containsKey(choice)){
+                int titular = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o titular a sair?");
+                    titular = scanner.nextInt();
+                    scanner.nextLine();
+                    if(numerosTitulares.containsKey(titular)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(titular,choice,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else {
+                System.out.println("opção Inválida");
+            }
+        }
+
+    }
+
+    public void alteraMedios(){
+        boolean flag = false;
+        int choice = -1;
+        while(!flag){
+            Medio titulares[] = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getMediosTitulares();
+            Map<Integer,Jogador> numerosTitulares = new HashMap<>();
+            for(int i = 0; i < titulares.length; i++){
+                numerosTitulares.put(titulares[i].getNumeroCamisola(),titulares[i]);
+            }
+            System.out.println("Titulares\n" + suplentes(numerosTitulares));
+            Map<Integer,Jogador> suplentesMap = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getMedios();
+            for(Integer i: numerosTitulares.keySet()){
+                suplentesMap.remove(i);
+            }
+            System.out.println("Suplentes -> \n" + suplentes(suplentesMap));
+
+            System.out.println("Que jogador pretende trocar? (0 para sair)");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            if(choice == 0) {
+                flag = true;
+            } else if (numerosTitulares.containsKey(choice)){
+                int suplente = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    suplente = scanner.nextInt();
+                    scanner.nextLine();
+                    if(suplentesMap.containsKey(suplente)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(choice,suplente,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else if (suplentesMap.containsKey(choice)){
+                int titular = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    titular = scanner.nextInt();
+                    scanner.nextLine();
+                    if(numerosTitulares.containsKey(titular)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(titular,choice,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else {
+                System.out.println("opção Inválida");
+            }
+        }
+
+    }
+
+    public void alteraAvancados(){
+        boolean flag = false;
+        int choice = -1;
+        while(!flag){
+            Avancado titulares[] = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getAvancadosTitulares();
+            Map<Integer,Jogador> numerosTitulares = new HashMap<>();
+            for(int i = 0; i < titulares.length; i++){
+                numerosTitulares.put(titulares[i].getNumeroCamisola(),titulares[i]);
+            }
+            System.out.println("Titulares\n" + suplentes(numerosTitulares));
+            Map<Integer,Jogador> suplentesMap = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getAvancado();
+            for(Integer i: numerosTitulares.keySet()){
+                suplentesMap.remove(i);
+            }
+            System.out.println("Suplentes -> \n" + suplentes(suplentesMap));
+
+            System.out.println("Que jogador pretende trocar? (0 para sair)");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+            if(choice == 0) {
+                flag = true;
+            } else if (numerosTitulares.containsKey(choice)){
+                int suplente = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    suplente = scanner.nextInt();
+                    scanner.nextLine();
+                    if(suplentesMap.containsKey(suplente)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(choice,suplente,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else if (suplentesMap.containsKey(choice)){
+                int titular = -1;
+                boolean valid = false;
+                while(!valid){
+                    System.out.println("Qual o suplente a entrar?");
+                    titular = scanner.nextInt();
+                    scanner.nextLine();
+                    if(numerosTitulares.containsKey(titular)){
+                        valid = true;
+                        gfm.getEquipas().get(gfm.getMinhaEquipa()).trocaJogadoresConstituicao(titular,choice,0);
+                    } else {
+                        System.out.println("Opção Inválida");
+                    }
+                }
+            } else {
+                System.out.println("opção Inválida");
+            }
+        }
+
+    }
+
+    private String suplentes(Map<Integer, Jogador> jogadores) {
+        StringBuilder sb = new StringBuilder();
+        for(Integer i : jogadores.keySet()){
+            sb.append("\t"+jogadores.get(i).getNumeroCamisola() + " - " + jogadores.get(i).toStringBasic()+"\n");
+        }
+        return sb.toString();
     }
 
     private Map<Integer, String> buildMenu(Collection<String> opcoes) {

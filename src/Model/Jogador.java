@@ -154,9 +154,7 @@ public abstract class Jogador implements Serializable {
         this.historico.add(nomeEquipa);
     }
 
-    public String basicInfoString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.getNome() + " -> " + this.getOverall());
-        return sb.toString();
+    public String toStringBasic() {
+        return "Nome: " + this.getNome() + " | Overall: " + this.getOverall();
     }
 }

@@ -84,6 +84,10 @@ public class Equipa implements Serializable {
         return constituicao;
     }
 
+    public void setConstituicao(int tatica, Map<Integer,Jogador> jogadores){
+        this.constituicao = new Constituicao(tatica, jogadores);
+    }
+
     public void calcOverall(){
         double sum = 0;
 
@@ -123,7 +127,7 @@ public class Equipa implements Serializable {
     public String geraPlantel(){
         StringBuilder sb = new StringBuilder();
         for(int i: jogadores.keySet()){
-            sb.append(i + " - " + jogadores.get(i).basicInfoString()+"\n");
+            sb.append(i + " - " + jogadores.get(i).toStringBasic()+"\n");
         }
         return sb.toString();
     }
@@ -166,7 +170,26 @@ public class Equipa implements Serializable {
 
     public void fazConstituicao(){
         int tatic = (Math.random() <= 0.5) ? 1 : 2;
-        this.constituicao = new Constituicao(tatic,jogadores);
+        Map<Integer,Jogador> aux = new HashMap<>();
+        for(int i : this.jogadores.keySet()){
+            if(this.jogadores.get(i) instanceof Model.GuardaRedes){
+                GuardaRedes gr = (GuardaRedes) this.jogadores.get(i);
+                aux.put(i,gr.clone());
+            } else if(this.jogadores.get(i) instanceof Model.Defesa){
+                Defesa gr = (Defesa) this.jogadores.get(i);
+                aux.put(i,gr.clone());
+            } else if(this.jogadores.get(i) instanceof Model.Lateral){
+                Lateral gr = (Lateral) this.jogadores.get(i);
+                aux.put(i,gr.clone());
+            } else if(this.jogadores.get(i) instanceof Model.Medio){
+                Medio gr = (Medio) this.jogadores.get(i);
+                aux.put(i,gr.clone());
+            } else if(this.jogadores.get(i) instanceof Model.Avancado){
+                Avancado gr = (Avancado) this.jogadores.get(i);
+                aux.put(i,gr.clone());
+            }
+        }
+        this.constituicao = new Constituicao(tatic,aux);
     }
 
     // Assumes:
@@ -174,4 +197,112 @@ public class Equipa implements Serializable {
     public Jogador getJogadorByName(String nome) {
         return this.jogadores.values().stream().filter(a -> a.getNome().equals(nome)).collect(Collectors.toList()).get(0);
     }
+
+    public Map<Integer,Jogador> getGuardaRedes(){
+        Map<Integer,Jogador> ret = new HashMap<>();
+
+        for(Integer i: this.jogadores.keySet()){
+            if(this.jogadores.get(i) instanceof Model.GuardaRedes){
+                GuardaRedes gr = (GuardaRedes) this.jogadores.get(i);
+                ret.put(i,gr.clone());
+            }
+        }
+
+        return ret;
+    }
+
+    public GuardaRedes getGrTitular(){
+        return constituicao.getGuardaRedes();
+    }
+
+    public Map<Integer,Jogador> getDefesas(){
+        Map<Integer,Jogador> ret = new HashMap<>();
+
+        for(Integer i: this.jogadores.keySet()){
+            if(this.jogadores.get(i) instanceof Model.Defesa){
+                Defesa gr = (Defesa) this.jogadores.get(i);
+                ret.put(i,gr.clone());
+            }
+        }
+
+        return ret;
+    }
+
+    public Defesa[] getDefesasTitulares(){
+        return this.constituicao.getDefesas();
+    }
+
+    public Map<Integer,Jogador> getLaterais(){
+        Map<Integer,Jogador> ret = new HashMap<>();
+
+        for(Integer i: this.jogadores.keySet()){
+            if(this.jogadores.get(i) instanceof Model.Lateral){
+                Lateral gr = (Lateral) this.jogadores.get(i);
+                ret.put(i,gr.clone());
+            }
+        }
+
+        return ret;
+    }
+
+    public Lateral[] getLateraisTitulares() {
+        return this.constituicao.getLaterais();
+    }
+
+    public Lateral[] getExtremosTitulares(){
+        return this.constituicao.getExtremos();
+    }
+
+    public Map<Integer,Jogador> getMedios(){
+        Map<Integer,Jogador> ret = new HashMap<>();
+
+        for(Integer i: this.jogadores.keySet()){
+            if(this.jogadores.get(i) instanceof Model.Medio){
+                Medio gr = (Medio) this.jogadores.get(i);
+                ret.put(i,gr.clone());
+            }
+        }
+
+        return ret;
+    }
+
+    public Medio[] getMediosTitulares(){
+        return this.constituicao.getMedios();
+    }
+
+    public Map<Integer,Jogador> getAvancado(){
+        Map<Integer,Jogador> ret = new HashMap<>();
+
+        for(Integer i: this.jogadores.keySet()){
+            if(this.jogadores.get(i) instanceof Model.Avancado){
+                Avancado gr = (Avancado) this.jogadores.get(i);
+                ret.put(i,gr.clone());
+            }
+        }
+
+        return ret;
+    }
+
+    public Avancado[] getAvancadosTitulares(){
+        return this.constituicao.getAvançados();
+    }
+
+    public void trocaJogadoresConstituicao(int sai, int entra, int lateral){
+        if(this.jogadores.get(sai) instanceof GuardaRedes){
+            this.constituicao.trocaGuardaRedes(((GuardaRedes) this.jogadores.get(entra)).clone());
+        } else if (this.jogadores.get(sai) instanceof Defesa){
+            this.constituicao.trocaDefesa(((Defesa) this.jogadores.get(sai)).clone(),((Defesa)this.jogadores.get(entra)).clone());
+        } else if (this.jogadores.get(sai) instanceof Lateral){
+            if(lateral == 1)
+                this.constituicao.trocaLateral(((Lateral) this.jogadores.get(sai)).clone(),((Lateral) this.jogadores.get(entra)).clone());
+            else
+                this.constituicao.trocaExtremo(((Lateral) this.jogadores.get(sai)).clone(),((Lateral) this.jogadores.get(entra)).clone());
+        } else if (this.jogadores.get(sai) instanceof Medio){
+            this.constituicao.trocaMedio(((Medio) this.jogadores.get(sai)).clone(), ((Medio) this.jogadores.get(entra)).clone());
+        } else if (this.jogadores.get(sai) instanceof Avancado){
+            this.constituicao.trocaAvancado(((Avancado) this.jogadores.get(sai)).clone(), ((Avancado) this.jogadores.get(entra)).clone());
+        }
+    }
+
+
 }

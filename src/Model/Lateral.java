@@ -5,6 +5,13 @@ import java.io.Serializable;
 public class Lateral extends Jogador implements Serializable {
     private int cruzamentos;
 
+    public Lateral(Jogador j){
+        super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
+                j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
+        double c = j.getPasse() * 0.7;
+        this.cruzamentos = (int) c;
+    }
+
     public Lateral(String nome,
                    int numeroCamisola,
                    String equipaAtual,

@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class Defesa extends Jogador implements Serializable {
 
+    public Defesa(Jogador j){
+        super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
+                j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
+    }
+
     public Defesa(String nome,
                   int numeroCamisola,
                   String equipaAtual,
