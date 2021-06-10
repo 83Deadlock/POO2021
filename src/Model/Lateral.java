@@ -1,35 +1,35 @@
-import java.time.LocalDate;
+package Model;
 
-public class GuardaRedes extends Jogador {
-    private int elasticidade;
+public class Lateral extends Jogador {
+    private int cruzamentos;
 
-    public GuardaRedes(String nome,
-                       int numeroCamisola,
-                       String equipaAtual,
-                       int velocidade,
-                       int resistencia,
-                       int destreza,
-                       int impulsao,
-                       int jogodecabeca,
-                       int remate,
-                       int passe,
-                       int elasticidade) {
+    public Lateral(String nome,
+                   int numeroCamisola,
+                   String equipaAtual,
+                   int velocidade,
+                   int resistencia,
+                   int destreza,
+                   int impulsao,
+                   int jogodecabeca,
+                   int remate,
+                   int passe,
+                   int cruzamentos) {
         super(nome, numeroCamisola, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
-        this.elasticidade = elasticidade;
+        this.cruzamentos = cruzamentos;
     }
 
-    public GuardaRedes (GuardaRedes j){
+    public Lateral (Lateral j){
         super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
                 j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
-        this.elasticidade = j.getElasticidade();
+        this.cruzamentos = j.getCruzamentos();
     }
 
-    public int getElasticidade() {
-        return elasticidade;
+    public int getCruzamentos() {
+        return cruzamentos;
     }
 
-    public void setElasticidade(int elasticidade) {
-        this.elasticidade = elasticidade;
+    public void setCruzamentos(int cruzamentos) {
+        this.cruzamentos = cruzamentos;
     }
 
     /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
@@ -37,21 +37,22 @@ public class GuardaRedes extends Jogador {
      */
     @Override
     public void calculateOverall() {
-        double overall = (this.getVelocidade() * 0.1) +
-                (this.getResistencia() * 0.05) +
-                (this.getDestreza() * 0.2) +
-                (this.getImpulsao() * 0.2) +
+        double overall = (this.getVelocidade() * 0.2) +
+                (this.getResistencia() * 0.2) +
+                (this.getDestreza() * 0.1) +
+                (this.getImpulsao() * 0.05) +
                 (this.getJogodecabeca() * 0.05) +
                 (this.getRemate() * 0.05) +
                 (this.getPasse() * 0.15) +
-                (this.getElasticidade() * 0.2);
+                (this.getCruzamentos() * 0.2);
 
         super.setOverall((int) overall);
     }
 
-    public static GuardaRedes fromLine(String line, String nomeEquipa) {
+    public static Lateral fromLine(String line, String nomeEquipa) {
         String[] atributos = line.split(",");
         String nome = atributos[0];
+        //LocalDate nascimento = Helper.dateFromString(atributos[2]);
         String equipa = nomeEquipa;
         int numeroCamisola = Integer.parseInt(atributos[1]);
         int velocidade = Integer.parseInt(atributos[2]);
@@ -61,13 +62,12 @@ public class GuardaRedes extends Jogador {
         int jogoCabeca = Integer.parseInt(atributos[6]);
         int remate = Integer.parseInt(atributos[7]);
         int passe = Integer.parseInt(atributos[8]);
-        int elasticidade = Integer.parseInt(atributos[9]);
-        return new GuardaRedes(nome, numeroCamisola, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, elasticidade);
+        int cruzamentos = Integer.parseInt(atributos[9]);
+        return new Lateral(nome, numeroCamisola, equipa,velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, cruzamentos);
     }
 
-
     public String toString() {
-        return "Jogador{" +
+        return "Model.Jogador{" +
                 "nome='" + super.getNome() + '\'' +
                 ", overall=" + super.getOverall() +
                 ", equipaAtual=" + super.getEquipaAtual() +
@@ -79,11 +79,11 @@ public class GuardaRedes extends Jogador {
                 ", jogodecabeca=" + super.getJogodecabeca() +
                 ", remate=" + super.getRemate() +
                 ", passe=" + super.getPasse() +
-                ", elasticidade=" + elasticidade +
+                ", cruzamentos=" + cruzamentos +
                 '}';
     }
 
-    public GuardaRedes clone(){
-        return new GuardaRedes(this);
+    public Lateral clone(){
+        return new Lateral(this);
     }
 }

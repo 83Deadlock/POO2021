@@ -1,3 +1,5 @@
+package Model;
+
 public class Resultado {
     private int golosCasa;
     private int golosFora;

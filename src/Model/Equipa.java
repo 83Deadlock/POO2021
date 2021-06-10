@@ -1,6 +1,6 @@
-import java.time.LocalDate;
+package Model;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Equipa {
     private String nome;
@@ -104,7 +104,7 @@ public class Equipa {
     }
 
     public String toString() {
-        return "Equipa{" +
+        return "Model.Equipa{" +
                 "nome=" + nome +
                 ", anoDaFundacao=" + anoDaFundacao +
                 ", jogadores=" + jogadores.size() +

@@ -1,8 +1,4 @@
-import javax.swing.text.html.parser.Parser;
-import java.security.Guard;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+package Model;
 
 public class Constituicao {
     private enum Tatica { QTT, QQD}
@@ -44,7 +40,7 @@ public class Constituicao {
     }
 
     public String toString() {
-        return "Constituicao{" +
+        return "Model.Constituicao{" +
                 "tatica=" + taticToString(tatica) +
                 '}';
     }

@@ -1,54 +1,21 @@
+package Files;
+
+import Model.*;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Parser {
 
-    GestorEquipas ge;
-    GestorJogos gj;
-
-    public Parser(){
-        this.ge = new GestorEquipas();
-        this.gj = new GestorJogos();
-    }
-
-    public Parser(GestorEquipas ge, GestorJogos gj){
-        this.ge = new GestorEquipas(ge);
-        this.gj = new GestorJogos(gj);
-    }
-
-    public Parser(Parser p){
-        this.ge = p.getGe();
-        this.gj = p.getGj();
-    }
-
-    public GestorEquipas getGe() {
-        return ge.clone();
-    }
-
-    public void setGe(GestorEquipas ge) {
-        this.ge = ge.clone();
-    }
-
-    public GestorJogos getGj() {
-        return gj.clone();
-    }
-
-    public void setGj(GestorJogos gj) {
-        this.gj = gj.clone();
-    }
-
-    public void parse() throws EquipaInvalidaException {
+    public void parse(GestFootManager gfm) throws EquipaInvalidaException {
         List<String> linhas = lerFicheiro("input_files/logs.txt");
 
 
-        Map<Integer, Jogador> jogadores = new HashMap<>(); //numero, jogador
-        List<Jogo> jogos = new ArrayList<>();
+        //Map<Integer, Model.Jogador> jogadores = new HashMap<>(); //numero, jogador
 
         Equipa ultima = null;
         Jogador j = null;
@@ -58,10 +25,10 @@ public class Parser {
         for (String linha : linhas) {
             linhaPartida = linha.split(":", 2);
             switch (linhaPartida[0]) {
-                case "Equipa":
+                case "Model.Equipa":
                     Equipa e = Equipa.fromLine(linhaPartida[1]);
                     if(ultima != null){
-                        this.ge.adicionaEquipa(ultima);
+                        gfm.adicionaEquipa(ultima);
                     }
                     ultima = e;
 
@@ -69,47 +36,47 @@ public class Parser {
 
                 case "Guarda-Redes":
                     j = GuardaRedes.fromLine(linhaPartida[1],ultima.getNome());
-                    jogadores.put(j.getNumeroCamisola(), j);
+                    //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Defesa":
+                case "Model.Defesa":
                     j = Defesa.fromLine(linhaPartida[1],ultima.getNome());
-                    jogadores.put(j.getNumeroCamisola(), j);
+                    //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Medio":
+                case "Model.Medio":
                     j = Medio.fromLine(linhaPartida[1],ultima.getNome());
-                    jogadores.put(j.getNumeroCamisola(), j);
+                    //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Lateral":
+                case "Model.Lateral":
                     j = Lateral.fromLine(linhaPartida[1],ultima.getNome());
-                    jogadores.put(j.getNumeroCamisola(), j);
+                    //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Avancado":
+                case "Model.Avancado":
                     j = Avancado.fromLine(linhaPartida[1],ultima.getNome());
-                    jogadores.put(j.getNumeroCamisola(), j);
+                    //jogadores.put(j.getNumeroCamisola(), j);
                     if (ultima == null)
                         throw new EquipaInvalidaException(); //we need to insert the player into the team
                     ultima.adicionaJogador(j); //if no team was parsed previously, file is not well-formed
                     break;
 
-                case "Jogo":
+                case "Model.Jogo":
                     Jogo jo = Jogo.fromLine(linhaPartida[1]);
-                    this.gj.adicionaJogo(jo);
+                    gfm.adicionaJogo(jo);
                     break;
                 default:
                     throw new EquipaInvalidaException();

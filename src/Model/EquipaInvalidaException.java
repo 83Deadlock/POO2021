@@ -1,3 +1,5 @@
+package Model;
+
 public class EquipaInvalidaException extends Exception {
     public EquipaInvalidaException(){
         super();

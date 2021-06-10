@@ -1,9 +1,11 @@
+package Model;
+
 public class SimulacaoJogo {
 
     private int estado;
     private Jogo j;
     /*
-    public SimulacaoJogo(Jogo j){
+    public Model.SimulacaoJogo(Model.Jogo j){
         this.j = j;
         this.estado = 1; // 1- Por iniciar || 2- A decorrer || 0- Terminado
     }

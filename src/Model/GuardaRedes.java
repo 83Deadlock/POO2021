@@ -1,46 +1,58 @@
-import java.time.LocalDate;
-import java.util.Random;
+package Model;
 
-public class Avancado extends Jogador {
+public class GuardaRedes extends Jogador {
+    private int elasticidade;
 
-    public Avancado(String nome,
-                    int numeroCamisola,
-                    String equipaAtual,
-                    int velocidade,
-                    int resistencia,
-                    int destreza,
-                    int impulsao,
-                    int jogodecabeca,
-                    int remate,
-                    int passe) {
+    public GuardaRedes(String nome,
+                       int numeroCamisola,
+                       String equipaAtual,
+                       int velocidade,
+                       int resistencia,
+                       int destreza,
+                       int impulsao,
+                       int jogodecabeca,
+                       int remate,
+                       int passe,
+                       int elasticidade) {
         super(nome, numeroCamisola, equipaAtual, velocidade, resistencia, destreza, impulsao, jogodecabeca, remate, passe);
+        this.elasticidade = elasticidade;
     }
 
-    public Avancado (Avancado j){
+    public GuardaRedes (GuardaRedes j){
         super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
                 j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
+        this.elasticidade = j.getElasticidade();
     }
 
+    public int getElasticidade() {
+        return elasticidade;
+    }
+
+    public void setElasticidade(int elasticidade) {
+        this.elasticidade = elasticidade;
+    }
 
     /** Método usado para calcular o overall de um avançado contando com os pesos nos atributos relativos à posição.
      *
      */
     @Override
     public void calculateOverall() {
-        double overall = (this.getVelocidade() * 0.2) +
-                (this.getResistencia() * 0.1) +
-                (this.getDestreza() * 0.1) +
-                (this.getImpulsao() * 0.15) +
-                (this.getJogodecabeca() * 0.15) +
-                (this.getRemate() * 0.2) +
-                (this.getPasse() * 0.1);
+        double overall = (this.getVelocidade() * 0.1) +
+                (this.getResistencia() * 0.05) +
+                (this.getDestreza() * 0.2) +
+                (this.getImpulsao() * 0.2) +
+                (this.getJogodecabeca() * 0.05) +
+                (this.getRemate() * 0.05) +
+                (this.getPasse() * 0.15) +
+                (this.getElasticidade() * 0.2);
 
         super.setOverall((int) overall);
     }
 
-    public static Avancado fromLine(String line, String nomeEquipa) {
+    public static GuardaRedes fromLine(String line, String nomeEquipa) {
         String[] atributos = line.split(",");
         String nome = atributos[0];
+        String equipa = nomeEquipa;
         int numeroCamisola = Integer.parseInt(atributos[1]);
         int velocidade = Integer.parseInt(atributos[2]);
         int resistencia = Integer.parseInt(atributos[3]);
@@ -49,12 +61,13 @@ public class Avancado extends Jogador {
         int jogoCabeca = Integer.parseInt(atributos[6]);
         int remate = Integer.parseInt(atributos[7]);
         int passe = Integer.parseInt(atributos[8]);
-        return new Avancado(nome, numeroCamisola, nomeEquipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe);
+        int elasticidade = Integer.parseInt(atributos[9]);
+        return new GuardaRedes(nome, numeroCamisola, equipa, velocidade, resistencia, destreza, impulsao, jogoCabeca, remate, passe, elasticidade);
     }
 
 
     public String toString() {
-        return "Jogador{" +
+        return "Model.Jogador{" +
                 "nome='" + super.getNome() + '\'' +
                 ", overall=" + super.getOverall() +
                 ", equipaAtual=" + super.getEquipaAtual() +
@@ -66,10 +79,11 @@ public class Avancado extends Jogador {
                 ", jogodecabeca=" + super.getJogodecabeca() +
                 ", remate=" + super.getRemate() +
                 ", passe=" + super.getPasse() +
+                ", elasticidade=" + elasticidade +
                 '}';
     }
 
-    public Avancado clone(){
-        return new Avancado(this);
+    public GuardaRedes clone(){
+        return new GuardaRedes(this);
     }
 }

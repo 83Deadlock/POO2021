@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+package Model;
 
 public class Medio extends Jogador {
     private int recuperacao;
@@ -67,7 +67,7 @@ public class Medio extends Jogador {
 
 
     public String toString() {
-        return "Jogador{" +
+        return "Model.Jogador{" +
                 "nome='" + super.getNome() + '\'' +
                 ", overall=" + super.getOverall() +
                 ", equipaAtual=" + super.getEquipaAtual() +

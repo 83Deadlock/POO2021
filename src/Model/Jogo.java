@@ -1,3 +1,5 @@
+package Model;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -145,7 +147,7 @@ public class Jogo {
         return scoreCasa == jogo.scoreCasa && scoreFora == jogo.scoreFora && Objects.equals(equipaCasa, jogo.equipaCasa) && Objects.equals(equipaFora, jogo.equipaFora) && Objects.equals(data, jogo.data) && Objects.equals(jogadoresCasa, jogo.jogadoresCasa) && Objects.equals(subsCasa, jogo.subsCasa) && Objects.equals(jogadoresFora, jogo.jogadoresFora) && Objects.equals(subsFora, jogo.subsFora);
     }
 
-    /*SimulacaoJogo sj = new SimulacaoJogo(this);
+    /*Model.SimulacaoJogo sj = new Model.SimulacaoJogo(this);
 
     public void startGame() throws InterruptedException {
         sj.start();

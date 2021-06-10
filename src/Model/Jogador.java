@@ -1,6 +1,5 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+package Model;
+
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -145,7 +144,7 @@ public abstract class Jogador {
         this.setNumeroCamisola(novo);
     }
 
-    /** Altera a equipa do Jogador
+    /** Altera a equipa do Model.Jogador
      *
      * @param nomeEquipa - Nome da equipa nova do jogador
      */
