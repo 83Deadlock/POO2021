@@ -157,4 +157,11 @@ public abstract class Jogador implements Serializable {
     public String toStringBasic() {
         return "Nome: " + this.getNome() + " | Overall: " + this.getOverall();
     }
+
+    public abstract String detalheJogador();
+
+    public String historicoToString(){
+        //
+        return "";
+    }
 }

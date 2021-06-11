@@ -95,4 +95,23 @@ public class Lateral extends Jogador implements Serializable {
     public Lateral clone(){
         return new Lateral(this);
     }
+
+    public String detalheJogador() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome: " + this.getNome()+"\n");
+        sb.append("Posição: Lateral\n");
+        sb.append("Número: " + this.getNumeroCamisola()+"\n");
+        sb.append("---> Atributos <---\n");
+        sb.append("Velocidade = " + this.getVelocidade() + "\n");
+        sb.append("Resistência = " + this.getResistencia() + "\n");
+        sb.append("Destreza = " + this.getDestreza() + "\n");
+        sb.append("Impulsão = " + this.getImpulsao() + "\n");
+        sb.append("Jogo de Cabeça = " + this.getJogodecabeca() + "\n");
+        sb.append("Remate = " + this.getRemate() + "\n");
+        sb.append("Passe = " + this.getPasse() + "\n");
+        sb.append("Cruzamentos = " + this.getCruzamentos() + "\n");
+        sb.append("---> Histórico <---\n");
+        sb.append(this.historicoToString()+"\n");
+        return sb.toString();
+    }
 }

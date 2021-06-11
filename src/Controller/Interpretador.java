@@ -254,7 +254,8 @@ public class Interpretador {
         menu.put(2,"Transferências");
         menu.put(3,"Ver constituição atual");
         menu.put(4,"Ver jogos realizados");
-        menu.put(5,"Voltar");
+        menu.put(5,"Consultar Plantel");
+        menu.put(6,"Voltar");
         int choice = -1;
         boolean flag = false;
         while(!flag){
@@ -270,11 +271,33 @@ public class Interpretador {
                         break;
                 case 4: verJogosRealizados();
                         break;
-                case 5: flag = true;
+                case 5: verPlantel();
                         break;
+                case 6: flag = true;
+                        break;
+                default: apresentacao.printMessage("Opção Inválida");
+                         break;
             }
         }
 
+    }
+
+    private void verPlantel() {
+        Map<Integer,Jogador> plantel = gfm.getEquipasCloned().get(gfm.getMinhaEquipa()).getJogadores();
+        Map<Integer,String> plantelPrintable = plantel.entrySet().stream().collect(Collectors.toMap(par -> par.getKey(),par -> par.getValue().toStringBasic()));
+        int choice = -1;
+        while(choice != 0){
+            apresentacao.printChoiceMenu(plantelPrintable);
+            apresentacao.printPrompt("Escolher Jogador (0 para voltar): ");
+            choice = in.lerInt();
+            if(choice != 0){
+                apresentacao.clearScreen();
+                apresentacao.printDetalheJogador(plantel.get(choice).detalheJogador());
+                apresentacao.printPrompt("Voltar (Enter)");
+                in.lerLinha();
+                apresentacao.clearScreen();
+            }
+        }
     }
 
     /**

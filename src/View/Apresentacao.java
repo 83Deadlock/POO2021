@@ -82,4 +82,12 @@ public class Apresentacao {
     public void printBreak() {
         aj.printbreak();
     }
+
+    public void printDetalheJogador(String detalheJogador) {
+        out.printMessage(detalheJogador);
+    }
+
+    public void clearScreen() {
+        Output.clearScreen();
+    }
 }
