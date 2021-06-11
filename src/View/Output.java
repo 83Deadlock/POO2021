@@ -12,4 +12,8 @@ public class Output {
     public void printPrompt(String s) {
         System.out.print(s);
     }
+
+    public static void clearScreen() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
 }

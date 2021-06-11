@@ -74,7 +74,7 @@ public class Interpretador {
     private void menuJogo() {
         Map<Integer,String> menu = new HashMap<>();
         menu.put(1,"Simulação rápida");
-        menu.put(2,"smiulação de jogo completo");
+        menu.put(2,"Simulação de jogo completo");
         menu.put(3,"Sair");
         boolean flag = false;
         int choice = -1;
@@ -84,11 +84,85 @@ public class Interpretador {
             choice = in.lerInt();
             switch (choice){
                 case 1:
-                    ////SIMULAÇÃO RAPIDA
+                    Map<String, Integer> nomesEquipas = this.gfm.getNomesEquipas();
+                    Map<Integer, Map.Entry<String, Integer>> menuEscolhas = new HashMap<>();
+                    int i = 1;
+                    for (Map.Entry<String, Integer> entry : nomesEquipas.entrySet()) {
+                        menuEscolhas.put(i++, entry);
+                    }
+                    boolean flag1 = true;
+                    int choice1 = -1;
+                    while (flag1) {
+                        apresentacao.imprimeEquipas(menuEscolhas);
+                        apresentacao.printPrompt("Escolha uma equipa: ");
+                        choice1 = in.lerInt();
+                        if (choice1 >= 1 && choice1 < i)
+                            flag1 = false;
+                    }
+                    Equipa casa = this.gfm.getEquipasCloned().get(menuEscolhas.get(choice1).getKey());
+                    menuEscolhas.remove(choice1);
+                    nomesEquipas.remove(casa.getNome());
+
+                    flag1 = true;
+                    choice1 = -1;
+                    while (flag1) {
+                        apresentacao.imprimeEquipas(menuEscolhas);
+                        apresentacao.printPrompt("Escolha uma equipa: ");
+                        choice1 = in.lerInt();
+                        if (choice1 >= 1 && choice1 < i)
+                            flag1 = false;
+                    }
+                    Equipa fora = this.gfm.getEquipasCloned().get(menuEscolhas.get(choice1).getKey());
+                    Jogo j =  new Jogo(casa,fora);
+
+                    j.simulacaoRapida();
+                    apresentacao.printResultado(j.getEquipaCasa().getNome(),j.getScoreCasa(),j.getEquipaFora().getNome(),j.getScoreFora(),j.getData());
+                    gfm.adicionaJogo(j);
+
                     flag = true;
                     break;
                 case 2:
-                    ///SIMULAÇÃO COMPLETA
+                    nomesEquipas = this.gfm.getNomesEquipas();
+                    menuEscolhas = new HashMap<>();
+                    i = 1;
+                    for (Map.Entry<String, Integer> entry : nomesEquipas.entrySet()) {
+                        menuEscolhas.put(i++, entry);
+                    }
+                    flag1 = true;
+                    choice1 = -1;
+                    while (flag1) {
+                        apresentacao.imprimeEquipas(menuEscolhas);
+                        apresentacao.printPrompt("Escolha uma equipa: ");
+                        choice1 = in.lerInt();
+                        if (choice1 >= 1 && choice1 < i)
+                            flag1 = false;
+                    }
+                    casa = this.gfm.getEquipasCloned().get(menuEscolhas.get(choice1).getKey());
+                    menuEscolhas.remove(choice1);
+                    nomesEquipas.remove(casa.getNome());
+
+                    flag1 = true;
+                    choice1 = -1;
+                    while (flag1) {
+                        apresentacao.imprimeEquipas(menuEscolhas);
+                        apresentacao.printPrompt("Escolha uma equipa: ");
+                        choice1 = in.lerInt();
+                        if (choice1 >= 1 && choice1 < i)
+                            flag1 = false;
+                    }
+                    fora = this.gfm.getEquipasCloned().get(menuEscolhas.get(choice1).getKey());
+                    j =  new Jogo(casa,fora);
+
+                    SimulacaoJogo sj = j.simulacaoCompleta();
+
+                    j.setScoreCasa(sj.getGolosCasa());
+                    j.setScoreFora(sj.getGolosFora());
+                    try {
+                        sj.simula();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     flag = true;
                     break;
                 case 3:
@@ -117,7 +191,7 @@ public class Interpretador {
         int choice = -1;
         while (flag) {
             apresentacao.imprimeEquipas(menuEscolhas);
-            apresentacao.printPrompt("Escolha uma equipa: ");
+            apresentacao.printPrompt("Escolha a sua equipa equipa: ");
             choice = in.lerInt();
             if (choice >= 1 && choice < i)
                 flag = false;

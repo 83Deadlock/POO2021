@@ -336,7 +336,7 @@ public class Equipa implements Serializable {
         suplentes.sort(new JogadorComparatorOverall());
         int i = 0;
         while(i < 3 && suplentes.size() > 0){
-            subs.put(suplentes.get(0).getNumeroCamisola(),getPiorTitular(suplentes.get(i),titulares).getNumeroCamisola());
+            subs.put(getPiorTitular(suplentes.get(i),titulares).getNumeroCamisola(),suplentes.get(0).getNumeroCamisola());
             i++;
         }
         return subs;
@@ -351,7 +351,12 @@ public class Equipa implements Serializable {
             j = (Defesa) defesas.get(defesas.size()-1);
         } else if(jogador instanceof Lateral){
             List<Lateral> lats = Arrays.asList(getLateraisTitulares());
-            lats.addAll(Arrays.asList(getExtremosTitulares()));
+            List<Lateral> exts = Arrays.asList(getExtremosTitulares());
+            List<Lateral> ret = new ArrayList<>(lats);
+
+            for(Lateral l: exts){
+                ret.add(l);
+            }
             j = (Lateral) lats.get(lats.size()-1);
         } else if(jogador instanceof Medio){
             List<Medio> meds = Arrays.asList(getMediosTitulares());
@@ -361,5 +366,25 @@ public class Equipa implements Serializable {
             j = (Avancado) avs.get(avs.size()-1);
         }
         return j;
+    }
+
+    public int calcOverallGame(List<Integer> titulares, Map<Integer, Integer> subs) {
+        int rating = 0;
+        int ratingP = 0;
+        double ratingSD = 0;
+        int ratingS = 0;
+        for(int i: titulares){
+            ratingP = this.jogadores.get(i).getOverall();
+            if(subs.keySet().contains(i)){
+                ratingP *= 0.6;
+                ratingSD = this.jogadores.get(subs.get(i)).getOverall() * 0.4;
+                ratingS = (int) ratingSD;
+                rating += ratingP + ratingS;
+            } else
+                rating += ratingP;
+        }
+        double aux = rating / titulares.size();
+        rating = (int) aux;
+        return rating;
     }
 }

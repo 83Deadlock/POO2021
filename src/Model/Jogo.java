@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.SimulacaoJogo;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -11,9 +13,9 @@ public class Jogo implements Serializable {
     private int scoreFora;
     private LocalDate data;
     private List<Integer> jogadoresCasa;
-    private Map<Integer,Integer> subsCasa;
+    private Map<Integer,Integer> subsCasa; // Jogador que sai - key, jogador que entra - value
     private List<Integer> jogadoresFora;
-    private Map<Integer,Integer> subsFora;
+    private Map<Integer,Integer> subsFora; // Jogador que sai - key, jogador que entra - value
 
     public Jogo(Equipa equipaCasa, Equipa equipaFora){
         this.equipaCasa = equipaCasa;
@@ -148,7 +150,7 @@ public class Jogo implements Serializable {
         return scoreCasa == jogo.scoreCasa && scoreFora == jogo.scoreFora && Objects.equals(equipaCasa, jogo.equipaCasa) && Objects.equals(equipaFora, jogo.equipaFora) && Objects.equals(data, jogo.data) && Objects.equals(jogadoresCasa, jogo.jogadoresCasa) && Objects.equals(subsCasa, jogo.subsCasa) && Objects.equals(jogadoresFora, jogo.jogadoresFora) && Objects.equals(subsFora, jogo.subsFora);
     }
 
-    /*Model.SimulacaoJogo sj = new Model.SimulacaoJogo(this);
+    /*Controller.SimulacaoJogo sj = new Controller.SimulacaoJogo(this);
 
     public void startGame() throws InterruptedException {
         sj.start();
@@ -187,5 +189,37 @@ public class Jogo implements Serializable {
         sb.append(this.equipaCasa.getNome() + " " + scoreCasa + "-");
         sb.append(this.scoreFora + " " + this.equipaFora.getNome() + "\n");
         return sb.toString();
+    }
+
+    public void simulacaoRapida(){
+        int ratCasa = equipaCasa.calcOverallGame(jogadoresCasa,subsCasa);
+        int golosCasa = 0;
+        int ratFora = equipaFora.calcOverallGame(jogadoresFora,subsFora);
+        int golosFora = 0;
+
+        int winner = 0; //1 casa, 0 empate, -1 fora
+        double chance = 0;
+        for(int i = 0; i < ratCasa; i++){
+            chance = Math.random();
+            if(chance <= 0.04){
+                golosCasa += 1;
+            }
+        }
+        for(int i = 0; i < ratFora; i++){
+            chance = Math.random();
+            if(chance <= 0.04){
+                golosFora += 1;
+            }
+        }
+        this.setScoreCasa(golosCasa);
+        this.setScoreFora(golosFora);
+    }
+
+    public SimulacaoJogo simulacaoCompleta(){
+        int ratCasa = equipaCasa.calcOverallGame(jogadoresCasa,subsCasa);
+        int golosCasa = 0;
+        int ratFora = equipaFora.calcOverallGame(jogadoresFora,subsFora);
+        int golosFora = 0;
+        return new SimulacaoJogo(equipaCasa.getNome(), ratCasa, equipaFora.getNome(), ratFora);
     }
 }
