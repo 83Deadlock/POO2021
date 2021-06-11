@@ -161,7 +161,17 @@ public abstract class Jogador implements Serializable {
     public abstract String detalheJogador();
 
     public String historicoToString(){
-        //
-        return "";
+        String ret = "[";
+        for (String equipa : historico) {
+            ret += equipa + ", ";
+        }
+        ret = removeLastChars(ret, 2);
+        ret += "]";
+        return ret;
+    }
+
+    // Mover para um ficheiro helper ??
+    public static String removeLastChars(String str, int chars) {
+        return str.substring(0, str.length() - chars);
     }
 }
