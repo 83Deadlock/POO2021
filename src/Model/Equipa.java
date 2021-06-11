@@ -304,5 +304,62 @@ public class Equipa implements Serializable {
         }
     }
 
+    public List<Integer> getListTitulares() {
+        List<Integer> ret = new ArrayList<>();
+        ret.add(getGrTitular().getNumeroCamisola());
+        Defesa[] defs = getDefesasTitulares();
+        for(int i = 0; i < defs.length; i++){
+            ret.add(defs[i].getNumeroCamisola());
+        }
+        Lateral[] lats = getLateraisTitulares();
+        for(int i = 0; i < lats.length; i++){
+            ret.add(lats[i].getNumeroCamisola());
+        }
+        Lateral[] exts = getExtremosTitulares();
+        for(int i = 0; i < exts.length; i++){
+            ret.add(exts[i].getNumeroCamisola());
+        }
+        Medio[] meds = getMediosTitulares();
+        for(int i = 0; i < meds.length; i++){
+            ret.add(meds[i].getNumeroCamisola());
+        }
+        Avancado[] avs = getAvancadosTitulares();
+        for(int i = 0; i < avs.length; i++){
+            ret.add(avs[i].getNumeroCamisola());
+        }
+        return ret;
+    }
 
+    public Map<Integer, Integer> getMapSubs(List<Integer> titulares) {
+        Map<Integer,Integer> subs = new HashMap<>();
+        List<Jogador> suplentes = getJogadores().values().stream().filter(j -> !(titulares.contains(j.getNumeroCamisola()))).collect(Collectors.toList());
+        suplentes.sort(new JogadorComparatorOverall());
+        int i = 0;
+        while(i < 3 && suplentes.size() > 0){
+            subs.put(suplentes.get(0).getNumeroCamisola(),getPiorTitular(suplentes.get(i),titulares).getNumeroCamisola());
+            i++;
+        }
+        return subs;
+    }
+
+    private Jogador getPiorTitular(Jogador jogador, List<Integer> titulares) {
+        Jogador j = null;
+        if(jogador instanceof GuardaRedes){
+            j = (GuardaRedes) getGrTitular();
+        } else if(jogador instanceof Defesa){
+            List<Defesa> defesas = Arrays.asList(getDefesasTitulares());
+            j = (Defesa) defesas.get(defesas.size()-1);
+        } else if(jogador instanceof Lateral){
+            List<Lateral> lats = Arrays.asList(getLateraisTitulares());
+            lats.addAll(Arrays.asList(getExtremosTitulares()));
+            j = (Lateral) lats.get(lats.size()-1);
+        } else if(jogador instanceof Medio){
+            List<Medio> meds = Arrays.asList(getMediosTitulares());
+            j = (Medio) meds.get(meds.size()-1);
+        } else if(jogador instanceof Avancado){
+            List<Avancado> avs = Arrays.asList(getAvancadosTitulares());
+            j = (Avancado) avs.get(avs.size()-1);
+        }
+        return j;
+    }
 }

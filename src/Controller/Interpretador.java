@@ -13,6 +13,11 @@ public class Interpretador {
     GestFootManager gfm;
     Apresentacao apresentacao;
 
+    /** Construtor
+     *
+     * @param ap - View
+     * @param gf - Model
+     */
     public Interpretador(Apresentacao ap, GestFootManager gf){
         in = new Input();
         apresentacao = ap;
@@ -44,11 +49,9 @@ public class Interpretador {
             if (choice == 1) { //Gestão de Equipa
                 menuGestEquipa();
             } else if (choice == 2) { //Realizar jogo
-
-                //TODOHere
-
+                menuJogo();
             } else if (choice == 3) { // Save Game
-                apresentacao.printPrompt("Introduza o nome do save:");
+                apresentacao.printPrompt("Introduza o nome do save: ");
                 String file_name = in.lerLinha();
                 int i = GuardarCarregarEstado.guardaDados(file_name, gfm);
                 if (i == 0) {
@@ -62,6 +65,40 @@ public class Interpretador {
                 apresentacao.printMessage("Opção inválida.");
             }
 
+        }
+    }
+
+    /**
+     * Menu da opção de realizar um jogo
+     */
+    private void menuJogo() {
+        Map<Integer,String> menu = new HashMap<>();
+        menu.put(1,"Simulação rápida");
+        menu.put(2,"smiulação de jogo completo");
+        menu.put(3,"Sair");
+        boolean flag = false;
+        int choice = -1;
+        while(!flag){
+            apresentacao.printChoiceMenu(menu);
+            apresentacao.printPrompt("Opção: ");
+            choice = in.lerInt();
+            switch (choice){
+                case 1:
+                    ////SIMULAÇÃO RAPIDA
+                    flag = true;
+                    break;
+                case 2:
+                    ///SIMULAÇÃO COMPLETA
+                    flag = true;
+                    break;
+                case 3:
+                    flag = true;
+                    break;
+                default:
+                    apresentacao.printMessage("Opção Inválida");
+                    break;
+
+            }
         }
     }
 
@@ -122,6 +159,9 @@ public class Interpretador {
         }
     }
 
+    /**
+     * Menu Principal do Jogo
+     */
     private void mainMenu() {
         Map<Integer,String> menu = new HashMap<>();
         menu.put(1,"Gestao de Equipa");
@@ -131,6 +171,9 @@ public class Interpretador {
         apresentacao.printChoiceMenu(menu);
     }
 
+    /**
+     * Menu para a Gestão de uma Equipa
+     */
     private void menuGestEquipa(){
         Map<Integer,String> menu = new HashMap<>();
         menu.put(1,"Editar constituição da equipa");
@@ -160,6 +203,9 @@ public class Interpretador {
 
     }
 
+    /**
+     * Método que dá print a todos os jogos da equipa
+     */
     private void verJogosRealizados() {
         apresentacao.printMessage(gfm.getJogosWith(gfm.getMinhaEquipa()));
     }
@@ -321,7 +367,7 @@ public class Interpretador {
         }
     }
 
-    public void alteraGuardaRedes() {
+    private void alteraGuardaRedes() {
         boolean flag = false;
         int choice = -1;
         while(!flag){
@@ -359,7 +405,7 @@ public class Interpretador {
         }
     }
 
-    public void alteraDefesas(){
+    private void alteraDefesas(){
         boolean flag = false;
         int choice = -1;
         while(!flag){
@@ -412,7 +458,7 @@ public class Interpretador {
 
     }
 
-    public void alteraLaterais(){
+    private void alteraLaterais(){
         boolean flag = false;
         int choice = -1;
         while(!flag){
@@ -465,7 +511,7 @@ public class Interpretador {
 
     }
 
-    public void alteraExtremos(){
+    private void alteraExtremos(){
         boolean flag = false;
         int choice = -1;
         while(!flag){
@@ -518,7 +564,7 @@ public class Interpretador {
 
     }
 
-    public void alteraMedios(){
+    private void alteraMedios(){
         boolean flag = false;
         int choice = -1;
         while(!flag){
@@ -571,7 +617,7 @@ public class Interpretador {
 
     }
 
-    public void alteraAvancados(){
+    private void alteraAvancados(){
         boolean flag = false;
         int choice = -1;
         while(!flag){

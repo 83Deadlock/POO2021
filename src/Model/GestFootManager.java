@@ -77,15 +77,17 @@ public class GestFootManager implements Serializable {
     }
 
     public String getJogosWith(String team){
-        Map<LocalDate,List<Jogo>> jogosTeam = new HashMap<>();
+        List<Jogo> jogosTeam = new ArrayList<>();
+        List<Jogo> jogosTotal = new ArrayList<>();
         for(LocalDate d: jogos.keySet()){
-            jogosTeam.put(d,filterJogosEquipa(jogos.get(d),team));
+            jogosTotal.addAll(jogos.get(d));
         }
+        jogosTeam = filterJogosEquipa(jogosTotal,team);
+        jogosTeam.sort(Comparator.comparing(Jogo::getData));
+
         StringBuilder sb = new StringBuilder();
-        for(LocalDate d: jogosTeam.keySet()){
-            for(Jogo j: jogosTeam.get(d)){
-                sb.append(j.toString() + "\n");
-            }
+        for(Jogo j: jogosTeam){
+            sb.append(j.toStringSimples() + "\n");
         }
 
         return sb.toString();

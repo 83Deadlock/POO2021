@@ -5,6 +5,13 @@ import java.io.Serializable;
 public class GuardaRedes extends Jogador implements Serializable {
     private int elasticidade;
 
+    public GuardaRedes (Jogador j){
+        super(j.getNome(),j.getNumeroCamisola(),j.getEquipaAtual(),j.getVelocidade(),j.getResistencia(),
+                j.getDestreza(),j.getImpulsao(),j.getJogodecabeca(),j.getRemate(),j.getPasse());
+        int e = (int) 0.7 * j.getImpulsao();
+        this.elasticidade = e;
+    }
+
     public GuardaRedes(String nome,
                        int numeroCamisola,
                        String equipaAtual,

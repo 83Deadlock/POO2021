@@ -15,6 +15,17 @@ public class Jogo implements Serializable {
     private List<Integer> jogadoresFora;
     private Map<Integer,Integer> subsFora;
 
+    public Jogo(Equipa equipaCasa, Equipa equipaFora){
+        this.equipaCasa = equipaCasa;
+        this.equipaFora = equipaFora;
+        this.scoreCasa = 0;
+        this.scoreFora = 0;
+        this.data = LocalDate.now();
+        this.jogadoresCasa = equipaCasa.getListTitulares();
+        this.subsCasa = equipaCasa.getMapSubs(this.jogadoresCasa);
+        this.jogadoresFora = equipaFora.getListTitulares();
+        this.subsFora = equipaFora.getMapSubs(this.jogadoresCasa);
+    }
 
     public Jogo(Equipa equipaCasa, Equipa equipaFora, int scoreCasa, int scoreFora, LocalDate data, List<Integer> jc, Map<Integer,Integer> subsC, List<Integer> jf, Map<Integer,Integer> subsF) {
         this.equipaCasa = equipaCasa;
@@ -167,6 +178,14 @@ public class Jogo implements Serializable {
                 sb.append(",");
             }
         }
+        return sb.toString();
+    }
+
+    public String toStringSimples() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Data = " + this.data.toString() + "\n");
+        sb.append(this.equipaCasa.getNome() + " " + scoreCasa + "-");
+        sb.append(this.scoreFora + " " + this.equipaFora.getNome() + "\n");
         return sb.toString();
     }
 }
