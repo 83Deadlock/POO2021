@@ -8,9 +8,12 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GestFootManager implements Serializable {
+public class GestFootManager implements Serializable, IGestFootManager {
+    // Map que contém as equipas registadas no sistema
     private Map<String,Equipa> equipas;
+    // Map que contém os jogos registados no sistema
     private Map<LocalDate, List<Jogo>> jogos;
+    // String com o nome da Equipa que o user controla
     private String minhaEquipa;
 
     public GestFootManager(){
@@ -43,7 +46,7 @@ public class GestFootManager implements Serializable {
         return mapAux;
     }
 
-    public void setJogos(Map<LocalDate,List<Jogo>> jogos){
+    public void setJogos(Map<LocalDate, List<Jogo>> jogos){
         this.jogos = new HashMap<>();
         jogos.entrySet().forEach(e -> this.jogos.put(e.getKey(),e.getValue().stream().map(j -> j.clone()).collect(Collectors.toList())));
     }
@@ -76,6 +79,16 @@ public class GestFootManager implements Serializable {
         return equipaToOverall;
     }
 
+    public List<Jogo> filterJogosEquipa(List<Jogo> jogos, String team) {
+        List<Jogo> res = new ArrayList<>();
+        for (Jogo j : jogos) {
+            if (j.getEquipaCasa().getNome().equals(team) || j.getEquipaFora().getNome().equals(team)) {
+                res.add(j.clone());
+            }
+        }
+        return res;
+    }
+
     public String getJogosWith(String team){
         List<Jogo> jogosTeam = new ArrayList<>();
         List<Jogo> jogosTotal = new ArrayList<>();
@@ -91,16 +104,6 @@ public class GestFootManager implements Serializable {
         }
 
         return sb.toString();
-    }
-
-    private List<Jogo> filterJogosEquipa(List<Jogo> jogos, String team) {
-        List<Jogo> res = new ArrayList<>();
-        for(Jogo j: jogos){
-            if(j.getEquipaCasa().getNome().equals(team) || j.getEquipaFora().getNome().equals(team)){
-                res.add(j.clone());
-            }
-        }
-        return res;
     }
 
     public String printConstituicao(String minhaEquipa) {

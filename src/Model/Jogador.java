@@ -6,11 +6,15 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public abstract class Jogador implements Serializable {
+    // Nome do jogador
     private String nome;
-
+    // Rating do Jogador
     private int overall;
+    // Número da Camisola do Jogador
     private int numeroCamisola;
+    // Set com os Nomes das Equipas onde o Jogador já jogou
     private Set<String> historico;
+    // String com o nome da equipa do Jogador
     private String equipaAtual;
 
     // Atributos
@@ -136,15 +140,6 @@ public abstract class Jogador implements Serializable {
     /** Métodos para gestão de um jogador
      *
      */
-
-    /** Método utilizado para alterar o número na camisola de um jogador
-     *
-     * @param novo - novo numero da camisola do jogador
-     */
-    public void alteraNumeroCamisola(int novo){
-        this.setNumeroCamisola(novo);
-    }
-
     /** Altera a equipa do Model.Jogador
      *
      * @param nomeEquipa - Nome da equipa nova do jogador
@@ -173,5 +168,9 @@ public abstract class Jogador implements Serializable {
     // Mover para um ficheiro helper ??
     public static String removeLastChars(String str, int chars) {
         return str.substring(0, str.length() - chars);
+    }
+
+    public void addEquipaToHistorico(String minhaEquipa){
+        this.historico.add(minhaEquipa);
     }
 }

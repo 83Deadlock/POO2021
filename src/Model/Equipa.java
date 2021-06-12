@@ -5,16 +5,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Equipa implements Serializable {
+    // Nome da Equipa
     private String nome;
-    private int anoDaFundacao;
+    // Map com os jogadores da equipa
     private Map<Integer,Jogador> jogadores;
+    // Rating da Equipa
     private int overall;
+    // Constituição da Equipa Titular
     private Constituicao constituicao;
-    //private final String[] constituicoes = {"QTT", "CTD", "TQT", "QQD", "QCU"};
 
-    public Equipa(String nome, int anoDaFundacao, Constituicao constituicao) {
+    public Equipa(String nome, Constituicao constituicao) {
         this.nome = nome;
-        this.anoDaFundacao = anoDaFundacao;
         this.jogadores = new HashMap<>();
         this.overall = 0;
         this.constituicao = constituicao;
@@ -22,7 +23,6 @@ public class Equipa implements Serializable {
 
     public Equipa(Equipa e) {
         this.nome = e.getNome();
-        this.anoDaFundacao = e.getAnoDaFundacao();
         this.jogadores = e.getJogadores();
         this.overall = e.getOverall();
         this.constituicao = e.getConstituicao();
@@ -30,7 +30,6 @@ public class Equipa implements Serializable {
 
     public Equipa(String nomeEquipa){
         this.nome = nomeEquipa;
-        //this.anoDaFundacao = ;
         this.jogadores = new HashMap<>();
         this.overall = 0;
         Random r = new Random();
@@ -42,10 +41,6 @@ public class Equipa implements Serializable {
 
     public String getNome() {
         return nome;
-    }
-
-    public int getAnoDaFundacao() {
-        return anoDaFundacao;
     }
 
     public Map<Integer,Jogador> getJogadores() {
@@ -111,13 +106,12 @@ public class Equipa implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Equipa equipa = (Equipa) o;
-        return anoDaFundacao == equipa.anoDaFundacao && overall == equipa.overall && Objects.equals(nome, equipa.nome) && Objects.equals(jogadores, equipa.jogadores) && Objects.equals(constituicao, equipa.constituicao);
+        return overall == equipa.overall && Objects.equals(nome, equipa.nome) && Objects.equals(jogadores, equipa.jogadores) && Objects.equals(constituicao, equipa.constituicao);
     }
 
     public String toString() {
         return "Model.Equipa{" +
                 "nome=" + nome +
-                ", anoDaFundacao=" + anoDaFundacao +
                 ", jogadores=" + jogadores.size() +
                 ", overall=" + overall +
                 ", constituicao=" + constituicao +
@@ -140,11 +134,14 @@ public class Equipa implements Serializable {
         if(this.jogadores.keySet().contains(j.getNumeroCamisola())){
             j.setNumeroCamisola(findProxNumeroDisponivel(j.getNumeroCamisola()));
         }
+        j.alteraEquipa(nome);
         this.jogadores.put(j.getNumeroCamisola(),j);
+        this.calcOverall();
     }
 
     public void removeJogador(int numero){
         this.jogadores.remove(numero);
+        this.calcOverall();
     }
 
     public void removeJogador(String nome) {
@@ -154,6 +151,7 @@ public class Equipa implements Serializable {
                 this.removeJogador(entry.getKey());
             }
         }
+        this.calcOverall();
     }
 
     public int findProxNumeroDisponivel(int numeroAtual){

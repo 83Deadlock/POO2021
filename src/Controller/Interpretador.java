@@ -355,7 +355,8 @@ public class Interpretador {
             return;
 
         Jogador jog = gfm.getEquipas().get(gfm.getMinhaEquipa()).getJogadorByName(opcoes.get(choice1));
-        gfm.getEquipas().get(gfm.getMinhaEquipa()).removeJogador(opcoes.get(choice1));
+        jog.addEquipaToHistorico(gfm.getMinhaEquipa());
+        gfm.getEquipas().get(gfm.getMinhaEquipa()).removeJogador(jog.getNome());
         gfm.getEquipas().get(opcoes2.get(choice2)).adicionaJogador(jog);
     }
 
@@ -389,6 +390,7 @@ public class Interpretador {
             return;
 
         Jogador jog = gfm.getEquipas().get(opcoesEquipas.get(choiceEquipa)).getJogadorByName(opcoes.get(choice1));
+        jog.addEquipaToHistorico(equipa.getNome());
         equipa.removeJogador(opcoes.get(choice1));
         gfm.getEquipas().get(gfm.getMinhaEquipa()).adicionaJogador(jog);
     }

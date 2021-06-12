@@ -9,10 +9,10 @@ import java.io.Serializable;
 
 public class FootManagerApp implements Serializable{
     public static void main(String[] args) {
-        GestFootManager gfm = new GestFootManager();
-        Interpretador i;
-        Apresentacao a = new Apresentacao();
-        Parser parser = new Parser();
+        GestFootManager gfm = new GestFootManager();    // Modelo
+        Interpretador i;                                // Controlador
+        Apresentacao a = new Apresentacao();            // Vista
+        Parser parser = new Parser();                   // Parser dos Logs
 
         try {
             parser.parse(gfm);
