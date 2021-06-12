@@ -194,7 +194,7 @@ public class Interpretador implements IInterpretador {
         int choice = -1;
         while (flag) {
             apresentacao.imprimeEquipas(menuEscolhas);
-            apresentacao.printPrompt("Escolha a sua equipa equipa: ");
+            apresentacao.printPrompt("Escolha a sua equipa: ");
             choice = in.lerInt();
             if (choice >= 1 && choice < i)
                 flag = false;
