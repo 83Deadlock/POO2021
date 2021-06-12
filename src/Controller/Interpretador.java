@@ -318,15 +318,26 @@ public class Interpretador implements IInterpretador {
         Map<Integer,String> menu = new HashMap<>();
         menu.put(1,"Comprar jogador");
         menu.put(2,"Vender jogador");
-        apresentacao.printPrompt("Your choice: ");
+        menu.put(3,"Sair");
         int choice = -1;
-        choice = in.lerInt();
-        if (choice == 1) {
-            menuComprarJogador();
-        } else if (choice == 2) {
-            menuVenderJogador();
-        } else {
+        boolean flag = false;
+        while(!flag){
+            apresentacao.printChoiceMenu(menu);
+            apresentacao.printPrompt("Your choice: ");
+            choice = in.lerInt();
+            if (choice == 1) {
+                menuComprarJogador();
+            } else if (choice == 2) {
+                menuVenderJogador();
+            } else if (choice == 3){
+                flag = true;
+            } else {
+                apresentacao.printMessage("Opção Inválida");
+            }
         }
+
+
+
     }
 
     private void menuVenderJogador() {
