@@ -8,9 +8,12 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Interpretador {
+public class Interpretador implements IInterpretador {
+    // Responsável pela leitura de Input do utilizador
     private final Input in;
+    // Modelo da Aplicacao
     GestFootManager gfm;
+    // Vista da Aplicacao
     Apresentacao apresentacao;
 
     /** Construtor

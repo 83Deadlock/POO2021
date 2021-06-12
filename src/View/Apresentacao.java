@@ -3,7 +3,7 @@ package View;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class Apresentacao {
+public class Apresentacao implements IApresentacao {
 
     private final Output out;
     private ApresentacaoJogo aj;
