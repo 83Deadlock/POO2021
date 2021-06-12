@@ -5,14 +5,21 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Constituicao implements Serializable {
-
-    private enum Tatica { QTT, QQD}
+    // Coleção de Constantes que representam os sistemas taticos
+    private enum Tatica {QTT, QQD}
+    // Guarda-Redes Titular
     private GuardaRedes guardaRedes;
+    // Array com os Defesas Titulares
     private Defesa[] defesas;
+    // Array com os Medios Titulares
     private Medio[] medios;
+    // Array com os Avancados Titulares
     private Avancado[] avançados;
+    // Array com os Defesas Laterais Titulares
     private Lateral[] laterais;
+    // Array com os Extremos Titulares
     private Lateral[] extremos;
+    // Assume um dos valores definidos nas constantes
     private Tatica tatica;
 
 

@@ -1,10 +1,10 @@
 //import Files.Files.Parser;
 import Controller.Interpretador;
+import Files.FicheiroInvalidoException;
 import Files.Parser;
 import Model.*;
 import View.Apresentacao;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 public class FootManagerApp implements Serializable{
@@ -16,7 +16,7 @@ public class FootManagerApp implements Serializable{
 
         try {
             parser.parse(gfm);
-        } catch (EquipaInvalidaException eie){
+        } catch (FicheiroInvalidoException eie){
             a.printMessage("Wrong Format for Input File.");
         }
 
