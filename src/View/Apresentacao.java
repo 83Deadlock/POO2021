@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class Apresentacao implements IApresentacao {
-
+    // Imprime os outputs ao utilizador
     private final Output out;
+    // Apresentacao responsável pelos outputs relacionados com um jogo
     private ApresentacaoJogo aj;
 
     // Construtores
